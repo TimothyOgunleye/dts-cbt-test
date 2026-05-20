@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>DTS 204 Student Portal — Redeemer's University</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --navy: #0a1628;
+            --navy-2: #112240;
+            --navy-3: #1a3560;
+            --gold: #b8822a;
+            --gold-2: #d4a03e;
+            --gold-3: #f0c060;
+            --gold-bg: #fdf6e9;
+            --white: #ffffff;
+            --off-white: #f7f8fa;
+            --border: #e2e6ed;
+            --border-strong: #c8d0dc;
+            --text-1: #0a1628;
+            --text-2: #3d4f66;
+            --text-3: #6b7d93;
+            --text-4: #9aaabb;
+            --green: #156647;
+            --green-bg: #eaf6f0;
+            --green-border: #b3dece;
+            --amber: #8a5a00;
+            --amber-bg: #fef8ec;
+            --amber-border: #f0d690;
+            --red: #9b1c1c;
+            --red-bg: #fef2f2;
+            --red-border: #fca5a5;
+            --blue: #1a4a8a;
+            --blue-bg: #eff5ff;
+            --blue-border: #bfcfef;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--off-white);
+            color: var(--text-1);
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+        /* NAV */
+        nav {
+            background: var(--navy);
+            border-bottom: 3px solid var(--gold);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 32px;
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-shrink: 0;
+            text-decoration: none;
+        }
+
+        .nav-logo {
+            width: 44px;
+            height: 44px;
+            border-radius: 6px;
+            object-fit: contain;
+        }
+
+        .nav-brand-text strong {
+            font-family: 'Lora', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            line-height: 1.25;
+            letter-spacing: 0.01em;
+            display: block;
+        }
+
+        .nav-brand-text span {
+            font-size: 0.68rem;
+            color: rgba(255, 255, 255, 0.45);
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            margin-top: 1px;
+            display: block;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-semester {
+            font-size: 0.72rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .btn-logout {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: rgba(255, 255, 255, 0.65);
+            padding: 7px 18px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.18s;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .btn-logout:hover {
+            border-color: rgba(255, 100, 100, 0.5);
+            color: #fca5a5;
+            background: rgba(255, 80, 80, 0.08);
+        }
+
+        /* DEADLINE STRIP */
+        #deadlineStrip {
+            background: var(--navy-2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .strip-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 14px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .strip-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .strip-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(212, 160, 62, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-3);
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .strip-text .ttl {
+            font-size: 0.68rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: rgba(255, 255, 255, 0.38);
+        }
+
+        .strip-text .date {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.82);
+        }
+
+        .strip-units {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .su {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 56px;
+        }
+
+        .su-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #fff;
+            line-height: 1;
+        }
+
+        .su-lbl {
+            font-size: 0.58rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: rgba(255, 255, 255, 0.32);
+            margin-top: 2px;
+        }
+
+        .su-dot {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.2);
+            margin-bottom: 14px;
+        }
+
+        .su.urgent .su-num {
+            color: #fca5a5;
+        }
+
+        .strip-deadline-label {
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.32);
+            white-space: nowrap;
+        }
+
+        .strip-deadline-label strong {
+            color: var(--gold-3);
+        }
+
+        #deadlineStrip.expired {
+            background: #300a0a;
+            border-bottom: 1px solid rgba(252, 100, 100, 0.18);
+        }
+
+        .expired-strip {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 32px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .expired-strip i {
+            color: #fca5a5;
+            font-size: 1.1rem;
+        }
+
+        .expired-strip p {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .expired-strip p strong {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* PAGE */
+        .page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 32px 64px;
+        }
+
+        /* STUDENT HERO — same white style as info section */
+        .student-hero {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-top: 4px solid var(--gold);
+            border-radius: 0 0 12px 12px;
+            padding: 32px 40px;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .hero-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .hero-avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: var(--blue-bg);
+            border: 2px solid var(--blue-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.7rem;
+            color: var(--blue);
+        }
+
+        .hero-identity h1 {
+            font-family: 'Lora', serif;
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--text-1);
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0;
+        }
+
+        .hero-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.8rem;
+            color: var(--text-3);
+            padding-right: 14px;
+            margin-right: 14px;
+            border-right: 1px solid var(--border);
+        }
+
+        .hero-meta-item:last-child {
+            border-right: none;
+            padding-right: 0;
+            margin-right: 0;
+        }
+
+        .hero-meta-item i {
+            color: var(--gold);
+            font-size: 0.75rem;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 20px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+        }
+
+        .status-badge.registered {
+            background: var(--amber-bg);
+            border: 1px solid var(--amber-border);
+            color: var(--amber);
+        }
+
+        .status-badge.started {
+            background: var(--blue-bg);
+            border: 1px solid var(--blue-border);
+            color: var(--blue);
+        }
+
+        .status-badge.submitted {
+            background: var(--green-bg);
+            border: 1px solid var(--green-border);
+            color: var(--green);
+        }
+
+        /* EXAM STATS ROW */
+        .exam-stats {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            display: flex;
+            margin-bottom: 28px;
+        }
+
+        .es-item {
+            flex: 1;
+            padding: 20px 28px;
+            border-right: 1px solid var(--border);
+        }
+
+        .es-item:last-child {
+            border-right: none;
+        }
+
+        .es-label {
+            font-size: 0.68rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--text-4);
+            margin-bottom: 6px;
+        }
+
+        .es-value {
+            font-family: 'Lora', serif;
+            font-size: 1.55rem;
+            font-weight: 600;
+            color: var(--text-1);
+            line-height: 1;
+        }
+
+        .es-sub {
+            font-size: 0.72rem;
+            color: var(--text-4);
+            margin-top: 4px;
+        }
+
+        /* MAIN GRID */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+        }
+
+        /* SECTION BLOCK */
+        .section-block {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+        }
+
+        .section-head {
+            padding: 18px 28px 14px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-head i {
+            color: var(--gold);
+            font-size: 0.95rem;
+        }
+
+        .section-head h2 {
+            font-family: 'Lora', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-1);
+        }
+
+        /* INFO TABLE */
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .info-table tr {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .info-table tr:last-child {
+            border-bottom: none;
+        }
+
+        .info-table td {
+            padding: 11px 28px;
+            vertical-align: middle;
+        }
+
+        .info-table td:first-child {
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-4);
+            width: 42%;
+            white-space: nowrap;
+        }
+
+        .info-table td:last-child {
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--text-1);
+        }
+
+        /* ACTION SECTION */
+        .action-section {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .action-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 36px;
+            text-align: center;
+            gap: 18px;
+        }
+
+        .action-icon-circle {
+            width: 76px;
+            height: 76px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 4px;
+        }
+
+        .action-icon-circle.blue {
+            background: var(--blue-bg);
+            border: 1.5px solid var(--blue-border);
+            color: var(--blue);
+        }
+
+        .action-icon-circle.green {
+            background: var(--green-bg);
+            border: 1.5px solid var(--green-border);
+            color: var(--green);
+        }
+
+        .action-icon-circle.red {
+            background: var(--red-bg);
+            border: 1.5px solid var(--red-border);
+            color: var(--red);
+        }
+
+        .action-body h3 {
+            font-family: 'Lora', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-1);
+        }
+
+        .action-body p {
+            font-size: 0.83rem;
+            color: var(--text-3);
+            max-width: 280px;
+            line-height: 1.6;
+        }
+
+        .btn-exam {
+            background: var(--navy);
+            color: #fff;
+            border: none;
+            padding: 13px 36px;
+            border-radius: 7px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.18s;
+            letter-spacing: 0.01em;
+        }
+
+        .btn-exam:hover {
+            background: var(--navy-3);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(10, 22, 40, 0.2);
+        }
+
+        .btn-exam:disabled {
+            background: #c5cdd8;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-download {
+            background: transparent;
+            border: 1.5px solid var(--gold);
+            color: var(--navy);
+            padding: 12px 32px;
+            border-radius: 7px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.18s;
+        }
+
+        .btn-download:hover {
+            background: var(--gold);
+            color: #fff;
+        }
+
+        .closed-notice {
+            background: var(--red-bg);
+            border: 1px solid var(--red-border);
+            border-radius: 7px;
+            padding: 10px 18px;
+            font-size: 0.79rem;
+            color: var(--red);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--navy);
+            padding: 24px 32px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer-inner p {
+            font-size: 0.73rem;
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        .footer-inner a {
+            color: var(--gold-3);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer-inner a:hover {
+            text-decoration: underline;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:900px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .exam-stats {
+                flex-wrap: wrap;
+            }
+
+            .es-item {
+                min-width: 50%;
+                border-bottom: 1px solid var(--border);
+            }
+        }
+
+        @media(max-width:680px) {
+            .nav-inner {
+                padding: 0 18px;
+                height: 60px;
+            }
+
+            .nav-semester {
+                display: none;
+            }
+
+            .nav-brand-text strong {
+                font-size: 0.88rem;
+            }
+
+            .page {
+                padding: 24px 18px 48px;
+            }
+
+            .student-hero {
+                padding: 22px 20px;
+            }
+
+            .hero-identity h1 {
+                font-size: 1.35rem;
+            }
+
+            .strip-inner,
+            .expired-strip {
+                padding: 12px 18px;
+            }
+
+            .su {
+                min-width: 46px;
+            }
+
+            .su-num {
+                font-size: 1.25rem;
+            }
+
+            .info-table td {
+                padding: 10px 18px;
+            }
+
+            .section-head {
+                padding: 15px 18px 12px;
+            }
+
+            .action-body {
+                padding: 30px 22px;
+            }
+        }
+
+        @media(max-width:460px) {
+            .hero-left {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-meta {
+                justify-content: center;
+            }
+
+            .hero-meta-item {
+                border-right: none;
+                padding-right: 0;
+                margin-right: 0;
+            }
+
+            .student-hero {
+                justify-content: center;
+                text-align: center;
+            }
+
+            .es-item {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="nav-inner">
+            <a class="nav-brand" href="#">
+                <img src="redemer.jpeg" alt="RUN" class="nav-logo"
+                    onerror="this.src='https://placehold.co/44x44/1a3560/ffffff?text=RUN'" />
+                <div class="nav-brand-text">
+                    <strong>Redeemer's University, Ede</strong>
+                    <span>DTS 204 &nbsp;·&nbsp; Student Examination Portal</span>
+                </div>
+            </a>
+            <div class="nav-right">
+                <span class="nav-semester">Mid-Semester &nbsp;2025/2026</span>
+                <button class="btn-logout" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div id="deadlineStrip"></div>
+
+    <div class="page">
+
+        <div class="student-hero">
+            <div class="hero-left">
+                <div class="hero-avatar"><i class="fas fa-user-graduate"></i></div>
+                <div class="hero-identity">
+                    <h1 id="studentName">—</h1>
+                    <div class="hero-meta">
+                        <div class="hero-meta-item"><i class="fas fa-id-card"></i> <span id="studentMatric">—</span>
+                        </div>
+                        <div class="hero-meta-item"><i class="fas fa-building-columns"></i> Mathematical Sciences</div>
+                        <div class="hero-meta-item"><i class="fas fa-layer-group"></i> 200 Level</div>
+                        <div class="hero-meta-item"><i class="fas fa-calendar"></i> 2025/2026 Session</div>
+                    </div>
+                </div>
+            </div>
+            <span class="status-badge registered" id="statusBadge">
+                <i class="fas fa-circle-check"></i> <span id="statusText">Registered</span>
+            </span>
+        </div>
+
+        <div class="exam-stats">
+            <div class="es-item">
+                <div class="es-label">Course Code</div>
+                <div class="es-value">DTS 204</div>
+                <div class="es-sub">Statistical Computing</div>
+            </div>
+            <div class="es-item">
+                <div class="es-label">Questions</div>
+                <div class="es-value">60</div>
+                <div class="es-sub">Multiple choice</div>
+            </div>
+            <div class="es-item">
+                <div class="es-label">Time Allowed</div>
+                <div class="es-value">30 <span style="font-size:1rem;font-weight:500">min</span></div>
+                <div class="es-sub">Timed, auto-submit</div>
+            </div>
+            <div class="es-item">
+                <div class="es-label">CA Weight</div>
+                <div class="es-value">25<span style="font-size:1rem;font-weight:500">%</span></div>
+                <div class="es-sub">Continuous assessment</div>
+            </div>
+        </div>
+
+        <div class="main-grid">
+
+            <div class="section-block">
+                <div class="section-head">
+                    <i class="fas fa-user"></i>
+                    <h2>Student Information</h2>
+                </div>
+                <table class="info-table">
+                    <tr>
+                        <td>Full Name</td>
+                        <td id="infoName">—</td>
+                    </tr>
+                    <tr>
+                        <td>Matric Number</td>
+                        <td id="infoMatric">—</td>
+                    </tr>
+                    <tr>
+                    </tr>
+                    <tr>
+                        <td>Level</td>
+                        <td>200 Level</td>
+                    </tr>
+                    <tr>
+                        <td>Department</td>
+                        <td>Mathematical Sciences</td>
+                    </tr>
+                    <tr>
+                        <td>Faculty</td>
+                        <td>Natural Sciences</td>
+                    </tr>
+                    <tr>
+                        <td>Session</td>
+                        <td>2025/2026</td>
+                    </tr>
+                    <tr>
+                        <td>Semester</td>
+                        <td>Second Semester</td>
+                    </tr>
+                    <tr>
+                        <td>Exam Status</td>
+                        <td id="infoStatus">Registered</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="action-section">
+                <div class="section-head">
+                    <i class="fas fa-laptop-code"></i>
+                    <h2>Examination</h2>
+                </div>
+                <div class="action-body" id="actionPanel"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-inner">
+            <p>&copy; 2026 DTS 204 &nbsp;·&nbsp; 2nd Semester, 2025/2026 Academic Session</p>
+            <p> <strong style="color:rgba(255,255,255,0.65)">Dr. Timothy A. Ogunleye</strong> &nbsp;|&nbsp; <a
+                    href="https://timothy-ogunleye.vercel.app/" target="_blank">Lecturer Profile</a></p>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+        const fbConfig = {
+            apiKey: "AIzaSyDCHRaW_jFOYHRL2QL0Me5ojE5XBuc93IA",
+            authDomain: "dts204-cbt.firebaseapp.com",
+            projectId: "dts204-cbt",
+            storageBucket: "dts204-cbt.firebasestorage.app",
+            messagingSenderId: "780943903110",
+            appId: "1:780943903110:web:af6671202e87177c1f8407"
+        };
+
+        let db;
+        try { const app = initializeApp(fbConfig); db = getFirestore(app); } catch (e) { console.warn(e); }
+
+        /* DEADLINE */
+        function getDeadline() {
+            const now = new Date();
+            const diff = (6 - now.getDay() + 7) % 7 || 7;
+            const d = new Date(now);
+            d.setDate(now.getDate() + diff);
+            d.setHours(23, 59, 59, 0);
+            return d;
+        }
+        const DEADLINE = getDeadline();
+        let examExpired = false, cdPrevMin = -1;
+
+        function renderStrip() {
+            const strip = document.getElementById('deadlineStrip');
+            const diff = DEADLINE - new Date();
+            if (diff <= 0) {
+                examExpired = true;
+                strip.className = 'expired';
+                strip.innerHTML = `<div class="expired-strip"><i class="fas fa-ban"></i><p><strong>Examination Portal Closed.</strong> The deadline for DTS 204 Mid-Semester has passed. No further submissions are accepted.</p></div>`;
+                renderAction(); return;
+            }
+            examExpired = false;
+            const days = Math.floor(diff / 86400000);
+            const hrs = Math.floor((diff % 86400000) / 3600000);
+            const mins = Math.floor((diff % 3600000) / 60000);
+            const secs = Math.floor((diff % 60000) / 1000);
+            const urgent = diff < 86400000;
+            const p2 = n => String(n).padStart(2, '0');
+            strip.className = '';
+            strip.innerHTML = `
+      <div class="strip-inner">
+        <div class="strip-left">
+          <div class="strip-icon"><i class="fas fa-hourglass-half"></i></div>
+          <div class="strip-text">
+            <div class="ttl">Exam Deadline Countdown</div>
+            <div class="date">DTS 204 Mid-Semester closes ${DEADLINE.toLocaleDateString('en-NG', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</div>
+          </div>
+        </div>
+        <div class="strip-units">
+          <div class="su${urgent ? ' urgent' : ''}"><span class="su-num">${p2(days)}</span><span class="su-lbl">Days</span></div>
+          <span class="su-dot">:</span>
+          <div class="su${urgent ? ' urgent' : ''}"><span class="su-num">${p2(hrs)}</span><span class="su-lbl">Hours</span></div>
+          <span class="su-dot">:</span>
+          <div class="su${urgent ? ' urgent' : ''}"><span class="su-num">${p2(mins)}</span><span class="su-lbl">Mins</span></div>
+          <span class="su-dot">:</span>
+          <div class="su${urgent ? ' urgent' : ''}"><span class="su-num" id="cdSec">${p2(secs)}</span><span class="su-lbl">Secs</span></div>
+        </div>
+        <div class="strip-deadline-label">Closes at <strong>${DEADLINE.toLocaleTimeString('en-NG', { hour: '2-digit', minute: '2-digit' })}</strong></div>
+      </div>`;
+            cdPrevMin = mins;
+        }
+
+        function tickStrip() {
+            const diff = DEADLINE - new Date();
+            if (diff <= 0) { renderStrip(); return; }
+            const mins = Math.floor((diff % 3600000) / 60000);
+            const secs = Math.floor((diff % 60000) / 1000);
+            if (mins !== cdPrevMin) { renderStrip(); return; }
+            const el = document.getElementById('cdSec');
+            if (el) el.textContent = String(secs).padStart(2, '0');
+        }
+        renderStrip();
+        setInterval(tickStrip, 1000);
+
+        /* STUDENT */
+        let student = {};
+
+        async function loadStudent() {
+            const raw = sessionStorage.getItem('cbt_student');
+            if (!raw) { window.location.href = 'login.html'; return; }
+            student = JSON.parse(raw);
+            if (db && student.matric) {
+                try {
+                    const snap = await getDoc(doc(db, 'students', student.matric.replace(/\//g, '_')));
+                    if (snap.exists()) { student = { ...student, ...snap.data() }; sessionStorage.setItem('cbt_student', JSON.stringify(student)); }
+                } catch (e) { console.error(e); }
+            }
+            renderPage();
+        }
+
+        function renderPage() {
+            const { name = 'Student', matric = '—', phone = 'Not provided', examStatus = 'registered' } = student;
+            document.getElementById('studentName').textContent = name;
+            document.getElementById('studentMatric').textContent = matric;
+            document.getElementById('infoName').textContent = name;
+            document.getElementById('infoMatric').textContent = matric;
+
+            const badge = document.getElementById('statusBadge');
+            const stxt = document.getElementById('statusText');
+            const istat = document.getElementById('infoStatus');
+            badge.className = 'status-badge';
+            if (examStatus === 'submitted') {
+                badge.classList.add('submitted'); stxt.textContent = 'Submitted';
+                istat.innerHTML = '<span style="color:var(--green);font-weight:600">✓ Submitted</span>';
+            } else if (examStatus === 'started') {
+                badge.classList.add('started'); stxt.textContent = 'In Progress';
+                istat.innerHTML = '<span style="color:var(--blue);font-weight:600">In Progress</span>';
+            } else {
+                badge.classList.add('registered'); stxt.textContent = 'Registered';
+                istat.textContent = 'Registered';
+            }
+            renderAction();
+        }
+
+        function renderAction() {
+            const panel = document.getElementById('actionPanel');
+            const status = student.examStatus || 'registered';
+            if (status === 'submitted') {
+                panel.innerHTML = `
+        <div class="action-icon-circle green"><i class="fas fa-circle-check"></i></div>
+        <h3>Exam Submitted</h3>
+        <p>Your exam have been recorded successfully. Download your official result slip below.</p>
+        <button class="btn-download" id="dlBtn"><i class="fas fa-file-pdf"></i> Download Result Slip</button>`;
+                document.getElementById('dlBtn').onclick = generateResultPDF; return;
+            }
+            if (examExpired) {
+                panel.innerHTML = `
+        <div class="action-icon-circle red"><i class="fas fa-ban"></i></div>
+        <h3>Portal Closed</h3>
+        <p>The examination deadline has passed. This portal no longer accepts submissions.</p>
+        <div class="closed-notice"><i class="fas fa-triangle-exclamation"></i> Submission window is permanently closed</div>`; return;
+            }
+            const resuming = status === 'started';
+            panel.innerHTML = `
+      <div class="action-icon-circle blue"><i class="fas fa-laptop-code"></i></div>
+      <h3>DTS 204 Mid-Semester</h3>
+      <p>60 multiple choice questions &bull; 30 minutes &bull; One attempt only. Ensure stable internet before starting.</p>
+      <button class="btn-exam" id="examBtn">${resuming ? 'Resume Examination' : 'Start Examination'}</button>`;
+            document.getElementById('examBtn').onclick = handleStart;
+        }
+
+        async function handleStart() {
+            if (examExpired) { alert('The examination deadline has passed.'); return; }
+            if (student.examStatus === 'submitted') { alert('You have already submitted this examination.'); return; }
+            if (db) {
+                try {
+                    const snap = await getDoc(doc(db, 'config', 'examStatus'));
+                    if (snap.exists() && snap.data().active !== true) { alert('The examination has not been activated yet. Please wait.'); return; }
+                } catch (e) { console.error(e); }
+            }
+            window.location.href = student.examStatus === 'started' ? 'exam.html' : 'instructions.html';
+        }
+
+        window.generateResultPDF = async function () {
+            if (typeof window.jspdf === 'undefined') { alert('PDF library is loading, please try again.'); return; }
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+            const s = student; const raw = s.score || 0; const ca = Math.round((raw / 60) * 25);
+            pdf.setFillColor(255, 255, 255); pdf.rect(0, 0, 210, 297, 'F');
+            pdf.setTextColor(80, 80, 80); pdf.setFont('helvetica', 'normal');
+            pdf.setFontSize(10); pdf.text("REDEEMER'S UNIVERSITY, EDE", 20, 22);
+            pdf.setFontSize(8.5);
+            pdf.text("PMB 230, Ede, Osun State, Nigeria", 20, 28);
+            pdf.text("Faculty of Natural Sciences · Department of Mathematical Sciences", 20, 33);
+            pdf.setTextColor(40, 40, 40); pdf.setFontSize(10);
+            pdf.text("DTS 204: STATISTICAL COMPUTING, INFERENCE & MODELLING", 20, 46);
+            pdf.text("MID-SEMESTER EXAMINATION RESULT (25% CA)", 20, 51);
+            pdf.setDrawColor(220, 220, 220); pdf.setLineWidth(0.2); pdf.line(20, 56, 190, 56);
+            const rows = [["Student Name", s.name || '—'], ["Matric Number", s.matric || '—'], ["Level", "200"], ["Session", "2025/2026"], ["Semester", "2nd Semester"], ["Mid Exam Date", new Date().toLocaleDateString()], ["Mid Exam Score", `${raw} / 60`], ["CA Score (25%)", `${ca} / 25`], ["Exam Status", "Submitted"]];
+            let y = 66; pdf.setFont('helvetica', 'normal'); pdf.setFontSize(9);
+            rows.forEach(([l, v]) => { pdf.setTextColor(110, 110, 110); pdf.text(String(l), 20, y); pdf.setTextColor(50, 50, 50); pdf.text(String(v), 70, y); y += 6.5; });
+            pdf.setDrawColor(220, 220, 220); pdf.line(20, y + 2, 190, y + 2);
+            pdf.setTextColor(140, 140, 140); pdf.setFontSize(8);
+            pdf.text(`Generated: ${new Date().toLocaleString()}`, 20, 270);
+            pdf.text("Official DTS 204 Result", 20, 275);
+            const clean = (s.name || 'student').toLowerCase().replace(/[^a-z0-9]/gi, '_').replace(/_+/g, '_').replace(/^_|_$/g, '');
+            pdf.save(`${clean}_DTS204_Result.pdf`);
+        };
+
+        document.getElementById('logoutBtn').onclick = () => { sessionStorage.clear(); window.location.href = 'login.html'; };
+        loadStudent();
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</body>
+
+</html>

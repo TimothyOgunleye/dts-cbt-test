@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>DTS 204 Examination | Redeemer's University</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      svg: { fontCache: 'global', scale: 0.95 },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'] }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" id="MathJax-script" async></script>
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #1a4d8c;
+      --primary-dark: #0e3a6b;
+      --primary-light: #e8f0fe;
+      --gold: #c9a227;
+      --gold-light: #fdf6e3;
+      --success: #2e7d64;
+      --warning: #d97706;
+      --danger: #dc2626;
+      --gray-50: #f7f8fa;
+      --gray-100: #f0f2f5;
+      --gray-200: #e2e6ea;
+      --gray-400: #9ca3af;
+      --gray-600: #6b7280;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.09);
+      --radius: 12px;
+      --font-body: 'DM Sans', sans-serif;
+      --font-display: 'Crimson Pro', serif;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--gray-50);
+      color: var(--gray-800);
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    /* ── LOADING SCREEN ── */
+    #loadingScreen {
+      position: fixed;
+      inset: 0;
+      background: white;
+      z-index: 9000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      transition: opacity 0.4s;
+    }
+
+    #loadingScreen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loader-spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid var(--gray-200);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .loader-text {
+      font-size: 0.9rem;
+      color: var(--gray-600);
+    }
+
+    .loader-sub {
+      font-size: 0.75rem;
+      color: var(--gray-400);
+      margin-top: -12px;
+    }
+
+    /* ── HEADER ── */
+    .exam-header {
+      background: white;
+      border-bottom: 1px solid var(--gray-200);
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      object-fit: contain;
+    }
+
+    .uni-title h2 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1.2;
+    }
+
+    .uni-title p {
+      font-size: 0.68rem;
+      color: var(--gray-600);
+      margin-top: 1px;
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .timer-card {
+      text-align: right;
+    }
+
+    .timer-label {
+      font-size: 0.58rem;
+      font-weight: 700;
+      color: var(--gray-400);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+
+    .timer-value {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--gray-800);
+      font-variant-numeric: tabular-nums;
+      line-height: 1.1;
+      transition: color 0.3s;
+    }
+
+    .timer-value.warning {
+      color: var(--warning);
+    }
+
+    .timer-value.danger {
+      color: var(--danger);
+      animation: pulse 0.8s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: 0.6
+      }
+    }
+
+    .btn-header-submit {
+      background: white;
+      color: var(--gray-800);
+      border: 1.5px solid var(--gray-700);
+      padding: 7px 18px;
+      border-radius: 40px;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn-header-submit:hover {
+      background: var(--gray-100);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* ── MAIN ── */
+    .exam-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px 24px 40px;
+    }
+
+    /* ── PROGRESS ── */
+    .progress-section {
+      background: white;
+      border-radius: var(--radius);
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      border: 1px solid var(--gray-200);
+    }
+
+    .progress-stats {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .stats-info {
+      font-size: 0.78rem;
+      color: var(--gray-600);
+    }
+
+    .stats-info strong {
+      color: var(--primary);
+      font-size: 0.9rem;
+    }
+
+    .progress-bar {
+      height: 4px;
+      background: var(--gray-200);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--gold));
+      border-radius: 10px;
+      transition: width 0.35s ease;
+    }
+
+    /* ── QUESTION CARD ── */
+    .question-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      margin-bottom: 16px;
+      border: 1px solid var(--gray-200);
+      box-shadow: var(--shadow-md);
+    }
+
+    .question-number {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-bottom: 12px;
+    }
+
+    .question-text {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 400;
+      line-height: 1.65;
+      color: var(--gray-800);
+      margin-bottom: 26px;
+    }
+
+    /* Options */
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 14px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.18s;
+      background: white;
+    }
+
+    .option-item:hover {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .option-item.selected {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .option-radio {
+      width: 18px;
+      height: 18px;
+      min-width: 18px;
+      border-radius: 50%;
+      border: 2px solid var(--gray-400);
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.18s;
+    }
+
+    .option-item.selected .option-radio {
+      border-color: var(--primary);
+    }
+
+    .option-item.selected .option-radio::after {
+      content: '';
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--primary);
+      display: block;
+    }
+
+    .option-letter {
+      font-weight: 700;
+      font-size: 0.82rem;
+      color: var(--gray-600);
+      min-width: 20px;
+    }
+
+    .option-item.selected .option-letter {
+      color: var(--primary);
+    }
+
+    .option-text {
+      font-size: 0.93rem;
+      line-height: 1.5;
+      color: var(--gray-800);
+      flex: 1;
+    }
+
+    .option-text mjx-container,
+    .question-text mjx-container {
+      display: inline !important;
+      vertical-align: middle;
+    }
+
+    /* ── ACTIONS ── */
+    .action-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-nav {
+      flex: 1;
+      padding: 11px 20px;
+      border: 1.5px solid var(--gray-700);
+      background: white;
+      border-radius: 40px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--gray-700);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: var(--font-body);
+    }
+
+    .btn-nav:hover:not(:disabled) {
+      background: var(--gray-100);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-nav:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    /* ── MODALS ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+      backdrop-filter: blur(2px);
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 18px;
+      padding: 32px;
+      max-width: 440px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-content h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .modal-content p {
+      color: var(--gray-600);
+      font-size: 0.88rem;
+      line-height: 1.6;
+      margin-bottom: 22px;
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .modal-btn {
+      padding: 10px 22px;
+      border-radius: 40px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      font-family: var(--font-body);
+      transition: all 0.2s;
+    }
+
+    .modal-btn.cancel {
+      background: var(--gray-200);
+      color: var(--gray-700);
+    }
+
+    .modal-btn.cancel:hover {
+      background: var(--gray-100);
+    }
+
+    .modal-btn.confirm {
+      background: var(--primary);
+      color: white;
+    }
+
+    .modal-btn.confirm:hover {
+      background: var(--primary-dark);
+    }
+
+    .result-icon {
+      font-size: 2.5rem;
+      color: var(--success);
+      margin-bottom: 12px;
+    }
+
+    /* Page-leave warning banner */
+    #leaveWarning {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: var(--danger);
+      color: white;
+      text-align: center;
+      padding: 10px 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      z-index: 9999;
+      display: none;
+      animation: slideDown 0.3s ease;
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-100%)
+      }
+
+      to {
+        transform: translateY(0)
+      }
+    }
+
+    footer {
+      background: white;
+      border-top: 1px solid var(--gray-200);
+      text-align: center;
+      padding: 14px;
+      font-size: 0.68rem;
+      color: var(--gray-400);
+      margin-top: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .exam-container {
+        padding: 12px 14px 32px;
+      }
+
+      .question-card {
+        padding: 18px 16px;
+      }
+
+      .question-text {
+        font-size: 1rem;
+      }
+
+      .option-text {
+        font-size: 0.85rem;
+      }
+
+      .uni-title h2 {
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Loading Screen -->
+  <div id="loadingScreen">
+    <div class="loader-spinner"></div>
+    <div class="loader-text">Preparing your examination…</div>
+    <div class="loader-sub" id="loadingStatus">Loading questions</div>
+  </div>
+
+  <!-- Page-leave warning banner -->
+  <div id="leaveWarning">
+    WARNING: You have left the exam tab. The timer continues. Return immediately!
+  </div>
+
+  <header class="exam-header">
+    <div class="header-container">
+      <div class="logo-area">
+        <img src="redemer.jpeg" alt="RUN" class="logo"
+          onerror="this.src='https://placehold.co/42x42/1a4d8c/white?text=RUN'">
+        <div class="uni-title">
+          <h2>REDEEMER'S UNIVERSITY, EDE</h2>
+          <p>DTS 204 • Statistical Computing, Inference &amp; Modelling</p>
+        </div>
+      </div>
+      <div class="header-controls">
+        <div class="timer-card">
+          <div class="timer-label">TIME REMAINING</div>
+          <div class="timer-value" id="timerDisplay">30:00</div>
+        </div>
+        <button class="btn-header-submit" id="submitBtn">Submit Exam</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="exam-container">
+    <div class="progress-section">
+      <div class="progress-stats">
+        <div class="stats-info">
+          <i class="fas fa-check-circle" style="color:var(--success)"></i>
+          Answered: <strong id="answeredCount">0</strong> / 60
+        </div>
+        <div class="stats-info">
+          Question: <strong id="currentDisplay">1</strong> of 60
+        </div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width:0%"></div>
+      </div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number" id="qNumber">Question 1 of 60</div>
+      <div class="question-text" id="qText">Loading…</div>
+      <div class="options-list" id="optionsList"></div>
+    </div>
+
+    <div class="action-buttons">
+      <button class="btn-nav" id="prevBtn">Previous</button>
+      <button class="btn-nav" id="nextBtn">Next</button>
+    </div>
+  </main>
+
+   <footer>
+    &copy;  2026 DTS 204 Course Lecturer for 2nd Semester of 2025/2026 Academic Session: Dr. Timothy A. OGUNLEYE 
+  </footer>
+
+  <!-- Submit Confirmation Modal -->
+  <div id="submitModal" class="modal-overlay" style="display:none">
+    <div class="modal-content">
+      <h3></i> Submit Examination?</h3>
+      <p>You have answered <strong id="modalAnswered">0</strong> out of 60 questions.<br>
+        Once submitted, you <strong>cannot</strong> re-attempt this exam.</p>
+      <div class="modal-buttons">
+        <button class="modal-btn cancel" onclick="closeModal()">Continue Exam</button>
+        <button class="modal-btn confirm" onclick="submitExam()">Yes, Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Result Modal -->
+  <div id="resultModal" class="modal-overlay" style="display:none">
+    <div class="modal-content">
+      <div class="result-icon"><i class="fas fa-check-circle"></i></div>
+      <h3>Examination Complete</h3>
+      <p>Your exam has been recorded successfully.</p>
+      <p id="resultMessage" style="font-size:0.82rem;margin-top:-10px"></p>
+      <div class="modal-buttons">
+        <button class="modal-btn confirm" onclick="downloadResult()">Download Result</button>
+        <button class="modal-btn cancel" onclick="goToDashboard()">Go to Dashboard</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, doc, getDoc, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDCHRaW_jFOYHRL2QL0Me5ojE5XBuc93IA",
+      authDomain: "dts204-cbt.firebaseapp.com",
+      projectId: "dts204-cbt",
+      storageBucket: "dts204-cbt.firebasestorage.app",
+      messagingSenderId: "780943903110",
+      appId: "1:780943903110:web:af6671202e87177c1f8407"
+    };
+
+    let db;
+    try {
+      const app = initializeApp(firebaseConfig);
+      db = getFirestore(app);
+    } catch (e) { console.warn('Firebase init error:', e); }
+
+    // ── QUESTION BANK ─────────────────────────────────────────────────────────
+
+    const FULL_BANK = [
+      { text: "In statistics, a population refers to _______", options: ["A selected subset of observations", "The complete set of elements of interest", "Only large observations", "Experimental errors"], correct: 1 },
+      { text: "A finite population contains _______", options: ["Endless elements", "Unknown elements", "Countable elements", "Random elements"], correct: 2 },
+      { text: "An infinite population is _______", options: ["Limited in size", "Countable", "Practically reachable", "Theoretically endless"], correct: 3 },
+      { text: "The portion of a population that is practically reachable is called _______", options: ["Infinite population", "Accessible population", "Sample space", "Response variable"], correct: 1 },
+      { text: "Which of the following is a population parameter? _______", options: ["Sample mean", "Sample variance", "Population mean", "Sample size"], correct: 2 },
+      { text: "The notation for population variance is _______", options: ["\\(\\mu\\)", "\\(\\sigma^2\\)", "\\(p\\)", "\\(n\\)"], correct: 1 },
+      { text: "The validity of conclusions in research depends greatly on _______", options: ["Sample color", "Sample representativeness", "Data storage", "Internet access"], correct: 1 },
+      { text: "A sample is _______", options: ["The entire universe of study", "A subset of the population", "A hypothesis", "A parameter"], correct: 1 },
+      { text: "Which characteristic is NOT associated with a good sample? _______", options: ["Randomness", "Independence", "Adequate size", "Biasness"], correct: 3 },
+      { text: "Randomness in sampling means _______", options: ["Every unit has equal size", "Every unit has a known probability of selection", "Every observation is dependent", "The sample is infinite"], correct: 1 },
+      { text: "Sampling is preferred because: _______", options: ["Populations are always small", "Studying the entire population may be impractical", "Samples are always exact", "Samples eliminate errors completely"], correct: 1 },
+      { text: "The difference between a statistic and a parameter is that: _______", options: ["Statistics describe populations", "Parameters describe samples", "Statistics describe samples while parameters describe populations", "Both mean the same thing"], correct: 2 },
+      { text: "The notation \\(\\mu\\) represents: _______", options: ["Sample proportion", "Population mean", "Sample variance", "Error term"], correct: 1 },
+      { text: "Which of the following is an example of a population? _______", options: ["Ten selected students", "Patients diagnosed with a condition in a hospital", "Five sampled workers", "A random experiment"], correct: 1 },
+      { text: "The scope of inference is defined by the: _______", options: ["Sample", "Population", "Error term", "Software package"], correct: 1 },
+      { text: "A model linear in parameters is called: _______", options: ["Logistic model", "Time series model", "Linear model", "Nonlinear model"], correct: 2 },
+      { text: "In linear models, \\(Y\\) commonly represents: _______", options: ["Predictor variable", "Error term", "Response variable vector", "Constant term"], correct: 2 },
+      { text: "The matrix of known constants in a linear model is denoted by: _______", options: ["\\(\\beta\\)", "\\(X\\)", "\\(Y\\)", "\\(e\\)"], correct: 1 },
+      { text: "The vector of unknown parameters is represented by: _______", options: ["\\(Y\\)", "\\(X\\)", "\\(\\theta\\)", "\\(I\\)"], correct: 2 },
+      { text: "The expression \\(E(Y) = X\\theta\\) represents: _______", options: ["Correlation analysis", "Linear model expectation", "Chi-square distribution", "Bayesian analysis"], correct: 1 },
+      { text: "In regression assumptions, the response variables are assumed to be: _______", options: ["Deterministic", "Normally distributed and independent", "Categorical only", "Fixed constants"], correct: 1 },
+      { text: "The regression equation \\(E(Y_i) = \\beta_0 + \\beta_1 x_i\\) implies: _______", options: ["No relationship exists", "Mean response depends on predictor variable", "Variance is zero", "Error is ignored"], correct: 1 },
+      { text: "The variance of \\(Y_i\\) in regression is assumed to be: _______", options: ["Variable", "Infinite", "Constant", "Unknown forever"], correct: 2 },
+      { text: "An additive error structure is represented as: _______", options: ["\\(Y = \\beta_0 \\beta_1 x_i\\)", "\\(Y = \\beta_0 + \\beta_1 x_i + e_i\\)", "\\(Y = \\beta_0 / e_i\\)", "\\(Y = x_i e_i\\)"], correct: 1 },
+      { text: "Error terms in regression are assumed to be: _______", options: ["Correlated", "Constant variables", "Independent", "Infinite"], correct: 2 },
+      { text: "Maximum Likelihood Estimation (MLE) aims at: _______", options: ["Maximizing errors", "Minimizing likelihood", "Estimating parameters efficiently", "Eliminating predictors"], correct: 2 },
+      { text: "The least squares method minimizes: _______", options: ["Correlation coefficient", "Sum of squared errors", "Population size", "Standard deviation only"], correct: 1 },
+      { text: "The least squares estimator is given by: _______", options: ["\\((X'X)^{-1}X'Y\\)", "\\(XY\\)", "\\(X+Y\\)", "\\(Y-X\\)"], correct: 0 },
+      { text: "OLS stands for: _______", options: ["Ordinary Linear Statistics", "Optimal Linear System", "Ordinary Least Squares", "Optimal Least Sampling"], correct: 2 },
+      { text: "A regression model mainly helps in: _______", options: ["Encryption", "Prediction", "Coding", "Networking"], correct: 1 },
+      { text: "In simple linear regression, \\(x\\) represents: _______", options: ["Response variable", "Predictor variable", "Error term", "Population parameter"], correct: 1 },
+      { text: "The dependent variable in regression is usually denoted by: _______", options: ["\\(x\\)", "\\(\\beta\\)", "\\(y\\)", "\\(\\theta\\)"], correct: 2 },
+      { text: "The least square estimator is unbiased when: _______", options: ["\\(E(\\hat{\\beta}) = \\beta\\)", "\\(E(\\hat{\\beta}) = 0\\)", "\\(X = 0\\)", "\\(Y = 1\\)"], correct: 0 },
+      { text: "BLUE means: _______", options: ["Best Linear Unbiased Estimator", "Basic Linear Uniform Equation", "Balanced Linear Utility Estimator", "Bayesian Linear Unbiased Equation"], correct: 0 },
+      { text: "The variance-covariance matrix of least square estimators is: _______", options: ["\\(X'Y\\)", "\\((X'X)^{-1}\\sigma^2\\)", "\\(XY^{-1}\\)", "\\(X+Y\\)"], correct: 1 },
+      { text: "The notation \\(\\text{Cov}(e_i, e_j) = 0\\) implies: _______", options: ["Errors are dependent", "Errors are uncorrelated", "Errors are equal", "Errors are infinite"], correct: 1 },
+      { text: "In regression analysis, the term \\(e_i\\) denotes: _______", options: ["Predictor variable", "Error term", "Parameter estimate", "Mean response"], correct: 1 },
+      { text: "The objective of minimizing error is to: _______", options: ["Increase variability", "Obtain best parameter estimates", "Reduce sample size", "Increase population"], correct: 1 },
+      { text: "Which of the following is NOT a population parameter? _______", options: ["\\(\\mu\\)", "\\(\\sigma\\)", "\\(p\\)", "\\(\\bar{x}\\)"], correct: 3 },
+      { text: "The notation \\(p\\) in population parameters stands for: _______", options: ["Probability density", "Population proportion", "Predictor variable", "Parameter matrix"], correct: 1 },
+      { text: "The matrix \\(I\\) in regression commonly denotes: _______", options: ["Identity matrix", "Inverse matrix", "Information matrix", "Interaction matrix"], correct: 0 },
+      { text: "The relationship between observed and expected values forms: _______", options: ["Error", "Mean", "Proportion", "Correlation only"], correct: 0 },
+      { text: "The expression \\(\\sum e^2\\) represents: _______", options: ["Total variation", "Sum of squared errors", "Correlation coefficient", "Population variance"], correct: 1 },
+      { text: "Which method is commonly used for parameter estimation in regression? _______", options: ["Histogram method", "Least squares method", "Pie chart method", "Sorting method"], correct: 1 },
+      { text: "A response variable is also known as: _______", options: ["Independent variable", "Predictor variable", "Dependent variable", "Control variable"], correct: 2 },
+      { text: "The predictor variable is also called: _______", options: ["Dependent variable", "Independent variable", "Response variable", "Error variable"], correct: 1 },
+      { text: "The variance of the error term is denoted by: _______", options: ["\\(\\mu\\)", "\\(\\beta\\)", "\\(\\sigma^2\\)", "\\(p\\)"], correct: 2 },
+      { text: "Regression analysis studies: _______", options: ["Sampling only", "Relationship among variables", "Data coding only", "Network systems"], correct: 1 },
+      { text: "The term asymptotic concept relates to: _______", options: ["Small sample properties", "Large sample behavior", "Categorical data only", "Computer programming only"], correct: 1 },
+      { text: "The transpose of matrix \\(X\\) is denoted by: _______", options: ["\\(X^{-1}\\)", "\\(X'\\)", "\\(X^2\\)", "\\(XX\\)"], correct: 1 },
+      { text: "Pandas in Python is mainly used for: _______", options: ["Game development", "Data manipulation and analysis", "Web hosting", "Animation"], correct: 1 },
+      { text: "Which Python library is commonly imported as <code>pd</code>? _______", options: ["NumPy", "TensorFlow", "Pandas", "Matplotlib"], correct: 2 },
+      { text: "Which Pandas function is used to read CSV files? _______", options: ["<code>read_excel()</code>", "<code>read_csv()</code>", "<code>open_data()</code>", "<code>csv_import()</code>"], correct: 1 },
+      { text: "The function <code>head()</code> in Pandas displays: _______", options: ["Last rows of data", "Summary statistics", "First rows of data", "Missing values only"], correct: 2 },
+      { text: "Which function is used to read Excel files in Pandas? _______", options: ["<code>read_csv()</code>", "<code>read_table()</code>", "<code>read_excel()</code>", "<code>open_excel()</code>"], correct: 2 },
+      { text: "DataFrame in Pandas refers to: _______", options: ["Single numerical value", "Two-dimensional tabular data structure", "Programming loop", "Error message"], correct: 1 },
+      { text: "Which command displays the first five rows by default? _______", options: ["<code>tail()</code>", "<code>shape()</code>", "<code>head()</code>", "<code>info()</code>"], correct: 2 },
+      { text: "The <code>tail()</code> function is used to: _______", options: ["Remove columns", "Display last rows of data", "Rename variables", "Create plots only"], correct: 1 },
+      { text: "A predictor variable influences the: _______", options: ["Error term", "Response variable", "Population size", "Covariance matrix"], correct: 1 },
+      { text: "Which of the following best describes statistical inference? _______", options: ["Drawing conclusions about a population from a sample", "Creating software applications", "Designing websites", "Deleting datasets"], correct: 0 }
+    ];
+
+
+    // ── QUESTION SET GENERATOR ────────────────────────────────────────────────
+    function generateQuestionSet() {
+      let all = [...FULL_BANK];
+      while (all.length < 60) all.push(...FULL_BANK);
+      all = all.slice(0, 60);
+      for (let i = all.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [all[i], all[j]] = [all[j], all[i]];
+      }
+      return all.map(q => {
+        const shuffled = [...q.options];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        const newCorrect = shuffled.indexOf(q.options[q.correct]);
+        return { text: q.text, options: shuffled, correct: newCorrect };
+      });
+    }
+
+    // ── STATE ─────────────────────────────────────────────────────────────────
+    let questions = [];
+    let answers = new Array(60).fill(null);
+    let currentIndex = 0;
+    let examSubmitted = false;
+    let studentData = {};
+    let timerInterval = null;
+
+    const EXAM_DURATION = 30 * 60; // 30 minutes in seconds
+
+    // ── FIREBASE-BACKED TIMER ─────────────────────────────────────────────────
+    // examStartTime is an epoch ms value stored in Firestore on the student doc.
+    // sessionStorage is used as a fast local cache so we don't need to re-fetch
+    // on every tick. On page load we always re-read from Firestore to stay accurate.
+    let examStartTime = null; // epoch ms
+
+    async function loadOrCreateStartTime() {
+      // 1. Try Firestore first (source of truth)
+      if (db && studentData.matric) {
+        try {
+          const docId = studentData.matric.replace(/\//g, '_');
+          const snap = await getDoc(doc(db, 'students', docId));
+          if (snap.exists()) {
+            const data = snap.data();
+            if (data.examStartTime) {
+              examStartTime = data.examStartTime;
+              sessionStorage.setItem('examStartTime', String(examStartTime));
+              return;
+            }
+          }
+        } catch (e) { console.warn('Firestore read error:', e); }
+      }
+
+      // 2. Fall back to sessionStorage
+      const cached = sessionStorage.getItem('examStartTime');
+      if (cached) {
+        examStartTime = parseInt(cached);
+        return;
+      }
+
+      // 3. First visit — create new start time
+      examStartTime = Date.now();
+      sessionStorage.setItem('examStartTime', String(examStartTime));
+
+      // Persist to Firestore
+      if (db && studentData.matric) {
+        try {
+          const docId = studentData.matric.replace(/\//g, '_');
+          await updateDoc(doc(db, 'students', docId), { examStartTime });
+        } catch (e) {
+          // updateDoc fails if doc doesn't exist yet — try setDoc with merge
+          try {
+            const docId = studentData.matric.replace(/\//g, '_');
+            await setDoc(doc(db, 'students', docId), { examStartTime }, { merge: true });
+          } catch (e2) { console.warn('Could not persist start time:', e2); }
+        }
+      }
+    }
+
+    function getSecondsRemaining() {
+      if (!examStartTime) return EXAM_DURATION;
+      const elapsed = Math.floor((Date.now() - examStartTime) / 1000);
+      return Math.max(0, EXAM_DURATION - elapsed);
+    }
+
+    function startTimer() {
+      updateTimerDisplay();
+      timerInterval = setInterval(() => {
+        if (examSubmitted) { clearInterval(timerInterval); return; }
+        updateTimerDisplay();
+        if (getSecondsRemaining() <= 0) {
+          clearInterval(timerInterval);
+          autoSubmit();
+        }
+      }, 500);
+    }
+
+    function updateTimerDisplay() {
+      const rem = getSecondsRemaining();
+      const mins = Math.floor(rem / 60);
+      const secs = rem % 60;
+      const el = document.getElementById('timerDisplay');
+      el.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      el.className = 'timer-value';
+      if (rem <= 300) el.classList.add('warning');
+      if (rem <= 60) el.classList.add('danger');
+    }
+
+    // ── PAGE VISIBILITY ───────────────────────────────────────────────────────
+    document.addEventListener('visibilitychange', () => {
+      const banner = document.getElementById('leaveWarning');
+      if (examSubmitted) return;
+      if (document.hidden) {
+        banner.style.display = 'block';
+        if (getSecondsRemaining() <= 0) autoSubmit();
+      } else {
+        banner.style.display = 'none';
+        updateTimerDisplay();
+        if (getSecondsRemaining() <= 0) autoSubmit();
+      }
+    });
+
+    // ── AUTO-SUBMIT ───────────────────────────────────────────────────────────
+    function autoSubmit() {
+      if (examSubmitted) return;
+      submitExam(true);
+    }
+
+    // ── STUDENT LOAD ──────────────────────────────────────────────────────────
+    function loadStudent() {
+      const stored = sessionStorage.getItem('cbt_student');
+      if (!stored) { window.location.href = 'login.html'; return false; }
+      studentData = JSON.parse(stored);
+      if (studentData.examStatus === 'submitted') {
+        window.location.href = 'dashboard.html';
+        return false;
+      }
+      return true;
+    }
+
+    // ── MATHJAX HELPER ────────────────────────────────────────────────────────
+    // Safe wrapper: only calls MathJax when it is fully ready.
+    let mathJaxReady = false;
+
+    function typeset(elements) {
+      if (!mathJaxReady || !window.MathJax) return;
+      MathJax.typesetPromise(elements).catch(err => console.warn('MathJax:', err));
+    }
+
+    // ── RENDER ────────────────────────────────────────────────────────────────
+    function renderCurrentQuestion() {
+      const q = questions[currentIndex];
+      const letters = ['A', 'B', 'C', 'D'];
+
+      document.getElementById('qNumber').textContent = `Question ${currentIndex + 1} of 60`;
+      document.getElementById('currentDisplay').textContent = currentIndex + 1;
+
+      const qTextEl = document.getElementById('qText');
+      if (mathJaxReady && window.MathJax) MathJax.typesetClear([qTextEl]);
+      qTextEl.innerHTML = q.text;
+
+      const container = document.getElementById('optionsList');
+      if (mathJaxReady && window.MathJax) MathJax.typesetClear([container]);
+      container.innerHTML = '';
+
+      q.options.forEach((opt, idx) => {
+        const sel = answers[currentIndex] === idx;
+        const div = document.createElement('div');
+        div.className = `option-item${sel ? ' selected' : ''}`;
+        div.innerHTML = `
+          <div class="option-radio"></div>
+          <div class="option-letter">${letters[idx]}.</div>
+          <div class="option-text">${opt}</div>`;
+        div.onclick = () => selectAnswer(idx);
+        container.appendChild(div);
+      });
+
+      updateProgress();
+      typeset([qTextEl, container]);
+    }
+
+    function selectAnswer(idx) {
+      if (examSubmitted) return;
+      answers[currentIndex] = idx;
+      renderCurrentQuestion();
+    }
+
+    function goToQuestion(i) {
+      if (examSubmitted) return;
+      currentIndex = i;
+      renderCurrentQuestion();
+    }
+
+    function changeQuestion(delta) {
+      if (examSubmitted) return;
+      const n = currentIndex + delta;
+      if (n < 0) { alert('This is the first question.'); return; }
+      if (n >= 60) { alert('You have reached the last question.'); return; }
+      currentIndex = n;
+      renderCurrentQuestion();
+    }
+
+    function updateProgress() {
+      const done = answers.filter(a => a !== null).length;
+      document.getElementById('answeredCount').textContent = done;
+      document.getElementById('progressFill').style.width = `${(done / 60) * 100}%`;
+    }
+
+    // ── SUBMIT ────────────────────────────────────────────────────────────────
+    window.showSubmitConfirm = function () {
+      document.getElementById('modalAnswered').textContent =
+        answers.filter(a => a !== null).length;
+      document.getElementById('submitModal').style.display = 'flex';
+    };
+
+    window.closeModal = function () {
+      document.getElementById('submitModal').style.display = 'none';
+    };
+
+    window.submitExam = async function (isAuto = false) {
+      if (examSubmitted) return;
+      examSubmitted = true;
+      clearInterval(timerInterval);
+      document.getElementById('submitModal').style.display = 'none';
+
+      let correct = 0;
+      for (let i = 0; i < 60; i++) {
+        if (answers[i] !== null && answers[i] === questions[i].correct) correct++;
+      }
+      const caScore = ((correct / 60) * 25).toFixed(2);
+
+      Object.assign(studentData, {
+        score: correct,
+        caScore: parseFloat(caScore),
+        examStatus: 'submitted',
+        submittedAt: new Date().toISOString()
+      });
+      sessionStorage.setItem('cbt_student', JSON.stringify(studentData));
+
+      if (db && studentData.matric) {
+        try {
+          const docId = studentData.matric.replace(/\//g, '_');
+          await updateDoc(doc(db, 'students', docId), {
+            score: correct,
+            caScore: parseFloat(caScore),
+            examStatus: 'submitted',
+            submittedAt: studentData.submittedAt
+          });
+        } catch (e) { console.warn(e); }
+      }
+
+      document.getElementById('resultMessage').innerHTML =
+        isAuto ? '&#9203; Time expired. Exam auto-submitted.' : '&#10003; Exam submitted successfully!';
+      document.getElementById('resultModal').style.display = 'flex';
+    };
+
+    // ============================================================
+    // REVISED PDF GENERATION FUNCTION
+    // Background: White (#FFFFFF) across all pages
+    // Text & Design: Black / Dark Gray (accessible, high contrast)
+    // Image insertion: Robust loading with fallback handling
+    // ============================================================
+
+    window.downloadResult = async function () {
+
+      if (typeof window.jspdf === 'undefined') {
+        alert('PDF library loading. Please try again.');
+        return;
+      }
+
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+      const s = studentData;
+      const raw = s.score || 0;
+
+      // Converts calculation to a clean, reader-friendly whole number.
+      // Rounds to nearest integer (e.g., 18.4 -> 18, 18.6 -> 19)
+      const calculatedCa = (raw / 60) * 25;
+      const ca = Math.round(calculatedCa);  // Rounded to whole number, no decimals
+
+      // 1. Background reset (Pure White)
+      pdf.setFillColor(255, 255, 255);
+      pdf.rect(0, 0, 210, 297, 'F');
+
+      // 2. Header Layout Placement (Image code removed, reset to standard 20mm margin)
+      const textStartX = 20;
+
+      pdf.setTextColor(80, 80, 80);
+      pdf.setFont('helvetica', 'normal');
+      pdf.setFontSize(10);
+      pdf.text("REDEEMER'S UNIVERSITY, EDE", textStartX, 22);
+
+      pdf.setFontSize(8.5);
+      pdf.text("PMB 230, Ede, Osun State, Nigeria", textStartX, 28);
+      pdf.text("Faculty of Natural Sciences - Department of Mathematical Sciences", textStartX, 33);
+
+      // 3. Document Title
+      pdf.setTextColor(40, 40, 40);
+      pdf.setFontSize(10);
+      pdf.text("DTS 204: STATISTICAL COMPUTING, INFERENCE & MODELLING", 20, 46);
+      pdf.text("MID-SEMESTER EXAMINATION RESULT (25% CA)", 20, 51);
+
+      // Divider Line
+      pdf.setDrawColor(220, 220, 220);
+      pdf.setLineWidth(0.2);
+      pdf.line(20, 56, 190, 56);
+
+      // 4. Normal List Display
+      const rows = [
+        ["Student Name", s.name || '—'],
+        ["Matric Number", s.matric || '—'],
+        ["Level", "200"],
+        ["Session", "2025/2026"],
+        ["Semester", "2nd Semester"],
+        ["Mid Exam Date", new Date().toLocaleDateString()],
+        ["Mid Exam Score", `${raw} / 60`],
+        ["CA Score (25%)", `${ca} / 25%`],  // Now displays whole number (e.g., 18 / 25 instead of 18.4 / 25)
+        ["Exam Status", "Submitted"],
+      ];
+
+      let currentY = 66;
+      const lineSpacing = 6.5;
+      const valueOffsetX = 65;
+
+      pdf.setFont('helvetica', 'normal');
+      pdf.setFontSize(9);
+
+      rows.forEach(([label, value]) => {
+        pdf.setTextColor(110, 110, 110);
+        pdf.text(String(label), 20, currentY);
+
+        pdf.setTextColor(50, 50, 50);
+        pdf.text(String(value), valueOffsetX, currentY);
+
+        currentY += lineSpacing;
+      });
+
+      // Bottom Divider Line
+      pdf.setDrawColor(220, 220, 220);
+      pdf.line(20, currentY + 2, 190, currentY + 2);
+
+      // 5. Minimal Footer
+      const footerY = 270;
+      pdf.setTextColor(140, 140, 140);
+      pdf.setFontSize(8);
+      pdf.text(`Generated: ${new Date().toLocaleString()}`, 20, footerY);
+      pdf.text("Official DTS 204 Result", 20, footerY + 5);
+
+      // 6. Save File
+      const cleanName = (s.name || 'student')
+        .toLowerCase()
+        .replace(/[^a-z0-9]/gi, '_')
+        .replace(/_+/g, '_')
+        .replace(/^_|_$/g, '');
+
+      const courseCode = "DTS204";
+      const fileName = `${cleanName}_${courseCode}_Result.pdf`;
+
+      pdf.save(fileName);
+    };
+
+    window.goToDashboard = function () { window.location.href = 'dashboard.html'; };
+
+    // ── SECURITY ──────────────────────────────────────────────────────────────
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('keydown', e => {
+      if (e.key === 'PrintScreen') {
+        e.preventDefault();
+        alert('Screenshots are disabled during this examination.');
+      }
+    });
+
+    // ── LOADING SCREEN HELPERS ────────────────────────────────────────────────
+    function setLoadingStatus(msg) {
+      const el = document.getElementById('loadingStatus');
+      if (el) el.textContent = msg;
+    }
+
+    function hideLoadingScreen() {
+      const el = document.getElementById('loadingScreen');
+      if (!el) return;
+      el.classList.add('hidden');
+      setTimeout(() => { el.style.display = 'none'; }, 450);
+    }
+
+    // ── MAIN INIT ─────────────────────────────────────────────────────────────
+    // Strategy:
+    //  1. Load student (sync — redirects if needed)
+    //  2. Fetch examStartTime from Firestore (async)
+    //  3. Generate questions
+    //  4. Wait for MathJax OR timeout after 5 s (exam still works without it)
+    //  5. Render first question, hide loading screen, start timer
+
+    async function initExam() {
+      // Step 1: student
+      if (!loadStudent()) return;
+
+      // Step 2: timer from Firestore
+      setLoadingStatus('Syncing exam progress…');
+      await loadOrCreateStartTime();
+
+      // Check if already timed out
+      if (getSecondsRemaining() <= 0) {
+        autoSubmit();
+        return;
+      }
+
+      // Step 3: questions
+      setLoadingStatus('Generating your questions...');
+      questions = generateQuestionSet();
+      answers = new Array(60).fill(null);
+      currentIndex = 0;
+
+      // Step 4: wait for MathJax (max 5 s)
+      setLoadingStatus('Loading ...');
+      await new Promise(resolve => {
+        const timeout = setTimeout(() => {
+          console.warn('MathJax timeout — proceeding without math rendering');
+          resolve();
+        }, 5000);
+
+        function tryResolve() {
+          if (window.MathJax?.startup?.promise) {
+            window.MathJax.startup.promise
+              .then(() => { mathJaxReady = true; clearTimeout(timeout); resolve(); })
+              .catch(() => { clearTimeout(timeout); resolve(); });
+          } else if (window.MathJax) {
+            // MathJax object exists but startup not yet set up
+            mathJaxReady = true;
+            clearTimeout(timeout);
+            resolve();
+          }
+          // else keep polling (handled below)
+        }
+
+        // Poll every 150 ms until MathJax appears or timeout fires
+        const poll = setInterval(() => {
+          if (window.MathJax) {
+            clearInterval(poll);
+            tryResolve();
+          }
+        }, 150);
+
+        // Also check immediately
+        if (window.MathJax) { clearInterval(poll); tryResolve(); }
+      });
+
+      // Step 5: render & start
+      setLoadingStatus('Ready!');
+      renderCurrentQuestion();
+      updateProgress();
+      startTimer();
+
+      document.getElementById('prevBtn').onclick = () => changeQuestion(-1);
+      document.getElementById('nextBtn').onclick = () => changeQuestion(1);
+      document.getElementById('submitBtn').onclick = () => showSubmitConfirm();
+
+      hideLoadingScreen();
+    }
+
+    // Kick off
+    initExam().catch(err => {
+      console.error('initExam failed:', err);
+      setLoadingStatus('Error loading exam. Please refresh.');
+    });
+
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</body>
+
+</html>

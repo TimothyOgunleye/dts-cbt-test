@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>DTS 204 · Examination Instructions — Redeemer's University</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --navy: #0a1628;
+            --navy-2: #112240;
+            --navy-3: #1a3560;
+            --gold: #b8822a;
+            --gold-2: #d4a03e;
+            --gold-3: #f0c060;
+            --white: #ffffff;
+            --off-white: #f7f8fa;
+            --border: #e2e6ed;
+            --text-1: #0a1628;
+            --text-2: #3d4f66;
+            --text-3: #6b7d93;
+            --text-4: #9aaabb;
+            --green: #156647;
+            --green-bg: #eaf6f0;
+            --green-border: #b3dece;
+            --amber: #8a5a00;
+            --amber-bg: #fef8ec;
+            --amber-border: #f0d690;
+            --red: #9b1c1c;
+            --red-bg: #fef2f2;
+            --red-border: #fca5a5;
+            --blue: #1a4a8a;
+            --blue-bg: #eff5ff;
+            --blue-border: #bfcfef;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--off-white);
+            color: var(--text-1);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* NAV */
+        nav {
+            background: var(--navy);
+            border-bottom: 3px solid var(--gold);
+        }
+
+        .nav-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 32px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .nav-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 6px;
+            object-fit: contain;
+        }
+
+        .nav-brand-text strong {
+            font-family: 'Lora', serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #fff;
+            line-height: 1.25;
+            display: block;
+        }
+
+        .nav-brand-text span {
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.42);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            display: block;
+            margin-top: 1px;
+        }
+
+        .nav-tag {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.4);
+            white-space: nowrap;
+        }
+
+        /* PAGE */
+        .page {
+            flex: 1;
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 44px 32px 64px;
+        }
+
+        /* UNIVERSITY HEADER — like an official letterhead */
+        .uni-header {
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 24px;
+            margin-bottom: 36px;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .uni-header-logo {
+            width: 56px;
+            height: 56px;
+            border-radius: 8px;
+            object-fit: contain;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+ 
+
+        .uni-header-text h1 {
+            font-family: 'Lora', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--navy);
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .uni-header-meta {
+            display: flex;
+            flex-wrap: wrap;
+            column-gap: 24px;
+            row-gap: 3px;
+        }
+
+        .uni-header-meta span {
+            font-size: 0.76rem;
+            color: var(--text-3);
+            font-weight: 500;
+        }
+
+        .uni-header-meta span strong {
+            color: var(--text-2);
+            font-weight: 600;
+        }
+
+        .exam-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .exam-title-row h2 {
+            font-family: 'Lora', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .ca-badge {
+            background: var(--amber-bg);
+            border: 1px solid var(--amber-border);
+            color: var(--amber);
+            padding: 6px 16px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        /* QUICK STATS ROW */
+        .quick-stats {
+            display: flex;
+            gap: 0;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 36px;
+        }
+
+        .qs-item {
+            flex: 1;
+            padding: 18px 24px;
+            border-right: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .qs-item:last-child {
+            border-right: none;
+        }
+
+        .qs-label {
+            font-size: 0.67rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--text-4);
+            margin-bottom: 6px;
+        }
+
+        .qs-value {
+            font-family: 'Lora', serif;
+            font-size: 1.45rem;
+            font-weight: 600;
+            color: var(--text-1);
+            line-height: 1;
+        }
+
+        .qs-sub {
+            font-size: 0.7rem;
+            color: var(--text-4);
+            margin-top: 3px;
+        }
+
+        /* INSTRUCTIONS */
+        .instructions-head {
+            font-family: 'Lora', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-1);
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .instr-list {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+
+        .instr-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .instr-item:last-child {
+            border-bottom: none;
+        }
+
+        .instr-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--navy);
+            color: #fff;
+            font-size: 0.72rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+ 
+        .instr-content strong {
+            display: block;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-1);
+            margin-bottom: 3px;
+        }
+
+        .instr-content p {
+            font-size: 0.83rem;
+            color: var(--text-3);
+            line-height: 1.55;
+        }
+
+        /* ACKNOWLEDGEMENT CHECKBOX */
+        .ack-row {
+            background: var(--blue-bg);
+            border: 1px solid var(--blue-border);
+            border-radius: 10px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 28px;
+            cursor: pointer;
+        }
+
+        .ack-row input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--navy);
+            cursor: pointer;
+            margin-top: 1px;
+            flex-shrink: 0;
+        }
+
+        .ack-row label {
+            font-size: 0.84rem;
+            color: var(--blue);
+            font-weight: 500;
+            cursor: pointer;
+            line-height: 1.5;
+        }
+
+        /* BUTTONS */
+        .btn-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-back {
+            background: transparent;
+            border: 1.5px solid var(--border-strong, #c8d0dc);
+            color: var(--text-2);
+            padding: 13px 28px;
+            border-radius: 7px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.18s;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            white-space: nowrap;
+        }
+
+        .btn-back:hover {
+            background: var(--off-white);
+            border-color: var(--text-3);
+        }
+
+        .btn-start {
+            flex: 1;
+            background: var(--navy);
+            color: #fff;
+            border: none;
+            padding: 13px 28px;
+            border-radius: 7px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.18s;
+            letter-spacing: 0.01em;
+        }
+
+        .btn-start:hover:not(:disabled) {
+            background: var(--navy-3);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(10, 22, 40, 0.2);
+        }
+
+        .btn-start:disabled {
+            background: #c5cdd8;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--navy);
+            padding: 20px 32px;
+        }
+
+        .footer-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .footer-inner p {
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.32);
+        }
+
+        .footer-inner a {
+            color: var(--gold-3);
+            text-decoration: none;
+        }
+
+        .footer-inner a:hover {
+            text-decoration: underline;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:600px) {
+            .nav-inner {
+                padding: 0 18px;
+                height: 58px;
+            }
+
+            .page {
+                padding: 28px 18px 48px;
+            }
+
+            .uni-header {
+                flex-direction: column;
+                gap: 14px;
+            }
+
+            .quick-stats {
+                flex-wrap: wrap;
+            }
+
+            .qs-item {
+                min-width: 50%;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .btn-row {
+                flex-direction: column;
+            }
+
+            .btn-back {
+                justify-content: center;
+            }
+
+            .exam-title-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media(max-width:400px) {
+            .qs-item {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="nav-inner">
+            <a class="nav-brand" href="dashboard.html">
+                <img src="redemer.jpeg" alt="RUN" class="nav-logo"
+                    onerror="this.src='https://placehold.co/40x40/1a3560/ffffff?text=RUN'" />
+                <div class="nav-brand-text">
+                    <strong>Redeemer's University, Ede</strong>
+                    <span>DTS 204 &nbsp;·&nbsp; Examination Portal</span>
+                </div>
+            </a>
+            <div class="nav-tag">Instructions</div>
+        </div>
+    </nav>
+
+    <div class="page">
+
+        <!-- University Letterhead -->
+        <div class="uni-header">
+            <img src="redemer.jpeg" alt="RUN Logo" class="uni-header-logo"
+                onerror="this.src='https://placehold.co/56x56/1a3560/ffffff?text=RUN'" />
+            <div class="uni-header-text">
+                <h1>Redeemer's University, Ede</h1>
+                <div class="uni-header-meta">
+                    <span>PMB 230, Ede, Osun State, Nigeria</span>
+                    <span>Faculty: <strong>Natural Sciences</strong></span>
+                    <span>Department: <strong>Mathematical Sciences</strong></span>
+                    <span>Course Code: <strong>DTS 204</strong> &nbsp;·&nbsp; Units: <strong>3</strong></span>
+                    <span>Title: <strong>Statistical Computing, Inference and Modelling</strong></span>
+                    <span>Session: <strong>2025/2026</strong> &nbsp;·&nbsp; Semester: <strong>Second</strong></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Title Row -->
+        <div class="exam-title-row">
+            <h2>Examination Instructions</h2>
+            <div class="ca-badge">Mid-Semester &nbsp; - 25% CA</div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="quick-stats">
+            <div class="qs-item">
+                <div class="qs-label">Questions</div>
+                <div class="qs-value">60</div>
+                <div class="qs-sub">Objectives (MCQ)</div>
+            </div>
+            <div class="qs-item">
+                <div class="qs-label">Time Allowed</div>
+                <div class="qs-value">30 <span style="font-size:0.95rem;font-weight:500">min</span></div>
+                <div class="qs-sub">Strict countdown</div>
+            </div>
+            <div class="qs-item">
+                <div class="qs-label">CA Weight</div>
+                <div class="qs-value">25<span style="font-size:0.95rem;font-weight:500">%</span></div>
+                <div class="qs-sub">Score ÷ 60 × 25</div>
+            </div>
+            <div class="qs-item">
+                <div class="qs-label">Attempts</div>
+                <div class="qs-value">1</div>
+                <div class="qs-sub">Single attempt only</div>
+            </div>
+        </div>
+
+        <!-- Instructions List -->
+        <div class="instructions-head">Before you begin - read carefully</div>
+        <ul class="instr-list">
+            <li class="instr-item">
+                <div class="instr-num">1</div>
+                <div class="instr-content">
+                    <strong>Time Limit</strong>
+                    <p>You have exactly 30 minutes from the moment you start. The timer begins immediately and cannot be
+                        paused. The exam auto-submits when time expires.</p>
+                </div>
+            </li>
+            <li class="instr-item">
+                <div class="instr-num">2</div>
+                <div class="instr-content">
+                    <strong>Attempt All 60 Questions</strong>
+                    <p>All questions must be attempted. Each question carries equal marks. Unanswered questions score
+                        zero — do not leave any blank.</p>
+                </div>
+            </li>
+            <li class="instr-item">
+                <div class="instr-num">3</div>
+                <div class="instr-content">
+                    <strong>Score Computation</strong>
+                    <p>Your CA score is calculated as <strong>(Your Marks ÷ 60) × 25</strong>, giving your contribution
+                        out of the 25% continuous assessment.</p>
+                </div>
+            </li>
+            <li class="instr-item">
+                <div class="instr-num">4</div>
+                <div class="instr-content">
+                    <strong>Stay on the Exam Screen</strong>
+                    <p>Do not switch tabs, minimise the browser, or navigate away during the exam. Suspicious activity
+                        may flag and invalidate your attempt.</p>
+                </div>
+            </li>
+            <li class="instr-item">
+                <div class="instr-num">5</div>
+                <div class="instr-content">
+                    <strong>Result Privacy</strong>
+                    <p>Your result will be available immediately after submission. Correct answers are not displayed to
+                        prevent academic dishonesty.</p>
+                </div>
+            </li>
+            <li class="instr-item">
+                <div class="instr-num">6</div>
+                <div class="instr-content">
+                    <strong>Single Attempt - No Retakes</strong>
+                    <p>Once you click Submit or the timer runs out, the exam is permanently closed for your account. No
+                        re-attempts will be granted under any circumstance.</p>
+                </div>
+            </li>
+            <li class="instr-item">
+                <div class="instr-num">7</div>
+                <div class="instr-content">
+                    <strong>Stable Internet Required</strong>
+                    <p>Ensure you are on a reliable internet connection before proceeding. A lost connection mid-exam
+                        will not extend your time.</p>
+                </div>
+            </li>
+        </ul>
+
+        <!-- Acknowledgement -->
+        <div class="ack-row" id="ackRow">
+            <input type="checkbox" id="ackCheck" />
+            <label for="ackCheck">
+                I have read and understood all the instructions above. I acknowledge that this is a single-attempt
+                examination and that any violation of the rules may result in disqualification.
+            </label>
+        </div>
+
+        <!-- Buttons -->
+        <div class="btn-row">
+            <button class="btn-back" id="cancelBtn"></i> Back to Dashboard
+            </button>
+            <button class="btn-start" id="proceedBtn" disabled>
+                I Understand, Start Exam
+            </button>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="footer-inner">
+            <p>&copy; 2026 DTS 204 &nbsp;·&nbsp; 2nd Semester, 2025/2026</p>
+            <p>Dr. Timothy A. Ogunleye &nbsp;|&nbsp; <a href="https://timothy-ogunleye.vercel.app/"
+                    target="_blank">Lecturer Profile</a></p>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getFirestore, doc, updateDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+        const fbConfig = {
+            apiKey: "AIzaSyDCHRaW_jFOYHRL2QL0Me5ojE5XBuc93IA",
+            authDomain: "dts204-cbt.firebaseapp.com",
+            projectId: "dts204-cbt",
+            storageBucket: "dts204-cbt.firebasestorage.app",
+            messagingSenderId: "780943903110",
+            appId: "1:780943903110:web:af6671202e87177c1f8407"
+        };
+
+        let db;
+        try { const app = initializeApp(fbConfig); db = getFirestore(app); } catch (e) { console.warn(e); }
+
+        const student = JSON.parse(sessionStorage.getItem('cbt_student'));
+        if (!student || student.examStatus === 'submitted') { window.location.href = 'dashboard.html'; }
+
+        /* Enable start button only when checkbox ticked */
+        const ackCheck = document.getElementById('ackCheck');
+        const proceedBtn = document.getElementById('proceedBtn');
+
+        ackCheck.addEventListener('change', () => {
+            proceedBtn.disabled = !ackCheck.checked;
+        });
+
+        document.getElementById('cancelBtn').addEventListener('click', () => {
+            window.location.href = 'dashboard.html';
+        });
+
+        proceedBtn.addEventListener('click', async () => {
+            if (!ackCheck.checked) return;
+
+            if (db) {
+                try {
+                    const snap = await getDoc(doc(db, 'config', 'examStatus'));
+                    if (snap.exists() && snap.data().active !== true) {
+                        alert('The examination has not been activated by the administrator yet. Please wait.');
+                        return;
+                    }
+                } catch (e) { console.error(e); }
+            }
+
+            if (student.examStatus !== 'started') {
+                student.examStatus = 'started';
+                student.startedAt = new Date().toISOString();
+                sessionStorage.setItem('cbt_student', JSON.stringify(student));
+                if (db && student.matric) {
+                    try {
+                        await updateDoc(doc(db, 'students', student.matric.replace(/\//g, '_')), {
+                            examStatus: 'started',
+                            startedAt: student.startedAt
+                        });
+                    } catch (e) { console.warn(e); }
+                }
+            }
+            window.location.href = 'exam.html';
+        });
+    </script>
+</body>
+
+</html>

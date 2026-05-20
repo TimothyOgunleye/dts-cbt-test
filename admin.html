@@ -1,0 +1,711 @@
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Admin Panel • DTS 204 CBT | Redeemer's University</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        :root {
+            --navy: #0f2440;
+            --gold: #c9a227;
+            --white: #ffffff;
+            --gray-50: #f8fafc;
+            --shadow: 0 8px 24px rgba(0,0,0,0.05);
+            --radius: 20px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #eef2f6;
+            color: #1e293b;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .login-container, .dashboard-container {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 500px;
+            padding: 32px 28px;
+            text-align: center;
+        }
+        .dashboard-container {
+            max-width: 1360px;
+            text-align: left;
+        }
+        h1, h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--navy);
+        }
+        h1 { font-size: 1.8rem; margin-bottom: 8px; }
+        .logo-small {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 12px;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 60px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.9rem;
+        }
+        .btn-primary {
+            background: var(--navy);
+            color: white;
+        }
+        .btn-primary:hover { background: #1a3458; }
+        .btn-gold {
+            border: 1.5px solid var(--gold);
+            background: transparent;
+            color: var(--navy);
+        }
+        .btn-gold:hover { background: #fef7e0; }
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+        }
+        .btn-danger:hover { background: #dc2626; }
+        .btn-sm { padding: 6px 14px; font-size: 0.75rem; }
+        .flex-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        .stat-card {
+            background: #f9fafc;
+            padding: 16px;
+            border-radius: 16px;
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+        .stat-card .number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--navy);
+        }
+        .stat-card .label {
+            font-size: 0.75rem;
+            color: #64748b;
+            text-transform: uppercase;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 16px 0;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        th {
+            background: #f1f5f9;
+            padding: 14px 12px;
+            font-size: 0.75rem;
+            text-align: left;
+            text-transform: uppercase;
+            color: #1e293b;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+        td {
+            padding: 12px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.85rem;
+            vertical-align: middle;
+        }
+        /* No background on score badges - clean text only */
+        .score-badge {
+            background: transparent;
+            color: #1e293b;
+            font-weight: 700;
+            border-radius: 0;
+            padding: 0;
+            display: inline-block;
+            font-size: 0.85rem;
+        }
+        .ca-badge {
+            background: transparent;
+            color: #1e293b;
+            font-weight: 700;
+            border-radius: 0;
+            padding: 0;
+            font-size: 0.85rem;
+            display: inline-block;
+        }
+        .info-tooltip {
+            font-size: 0.7rem;
+            color: #5b6e8c;
+            margin-left: 6px;
+            cursor: help;
+            border-bottom: 1px dotted;
+        }
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 52px;
+            height: 26px;
+            margin-left: 12px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #cbd5e1;
+            border-radius: 34px;
+            transition: 0.3s;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background: white;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+        input:checked + .slider {
+            background-color: #059669;
+        }
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+        .hidden { display: none !important; }
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+        .modal {
+            background: white;
+            border-radius: 24px;
+            padding: 28px;
+            width: 400px;
+            max-width: 90%;
+            position: relative;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            margin: 8px 0 16px;
+            font-size: 0.9rem;
+        }
+        .close-btn {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.6rem;
+            cursor: pointer;
+            color: #94a3b8;
+        }
+        .close-btn:hover { color: #1e293b; }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #64748b;
+        }
+        .error-message {
+            background: #fee2e2;
+            color: #dc2626;
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            font-size: 0.85rem;
+        }
+        .sn-column {
+            width: 55px;
+            text-align: center;
+        }
+        @media (max-width: 700px) {
+            .flex-row { flex-direction: column; align-items: stretch; }
+            table { font-size: 0.7rem; }
+            th, td { padding: 6px 4px; }
+            .score-badge, .ca-badge { font-size: 0.7rem; }
+            .sn-column { width: 40px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- DASHBOARD VIEW -->
+    <div id="dashboardView" class="dashboard-container">
+        <div class="flex-row" style="justify-content: space-between;">
+            <div>
+                <h1>Admin Panel</h1>
+                <p style="color: #64748b;">DTS 204 Examination Control | <strong>CA Score = (Raw Score / 60) × 25%</strong></p>
+            </div>
+            <button class="btn btn-danger btn-sm" id="logoutAdminBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </div>
+
+        <!-- Stats -->
+        <div class="flex-row">
+            <div class="stat-card"><div class="number" id="totalStudents">0</div><div class="label">Total Students</div></div>
+            <div class="stat-card"><div class="number" id="submittedCount">0</div><div class="label">Exams Taken</div></div>
+            <div class="stat-card"><div class="number" id="pendingCount">0</div><div class="label">Pending</div></div>
+            <div class="stat-card"><div class="number" id="avgCaScore">0.00</div><div class="label">Avg CA (over 25%)</div></div>
+        </div>
+
+        <!-- Exam Activation Toggle -->
+        <div class="flex-row" style="background: #f9fafc; border-radius: 16px; padding: 16px;">
+            <div>
+                <strong>Exam Status</strong><br>
+                <span id="examStatusLabel" style="font-size:0.9rem; color:#64748b;">Inactive</span>
+            </div>
+            <label class="toggle-switch">
+                <input type="checkbox" id="examToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex-row">
+            <button class="btn btn-primary" id="addDefaultBtn">
+                <i class="fas fa-database"></i> Add All Students
+            </button>
+            <button class="btn btn-gold" id="openAddModalBtn">
+                <i class="fas fa-user-plus"></i> Add New Student
+            </button>
+            <button class="btn btn-gold" id="downloadResultsPdfBtn">
+                <i class="fas fa-file-pdf"></i> Download Results PDF
+            </button>
+        </div>
+
+        <!-- Students Table: includes S/N column + CA Score (whole number) -->
+        <div id="tableError" class="error-message hidden"></div>
+        <div style="overflow-x: auto;">
+            <table id="studentsTable">
+                <thead>
+                    <tr>
+                        <th class="sn-column">S/N</th>
+                        <th>Name</th>
+                        <th>Matric</th>
+                        <th>Level</th>
+                        <th>Raw Score<br><span style="font-weight:normal;">(/60)</span></th>
+                        <th>CA Score<br><span style="font-weight:normal;">(over 25%)</span></th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="studentsTableBody">
+                    <tr><td colspan="8" class="loading">Loading students......</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ADD STUDENT MODAL -->
+    <div id="addModal" class="modal-overlay" style="display: none !important;">
+        <div class="modal">
+            <button class="close-btn" id="closeModalBtn">&times;</button>
+            <h2>➕ Add New Student</h2>
+            <label>Matric Number</label>
+            <input type="text" id="newMatric" placeholder="e.g. RUN/SDS/24/12345">
+            <label>Full Name</label>
+            <input type="text" id="newName" placeholder="Student full name">
+            <p style="font-size:0.8rem; margin-top:-8px; margin-bottom:12px; color:#64748b;">Level auto-assigned: 200 | Initial raw score = 0</p>
+            <button class="btn btn-primary" id="saveStudentBtn" style="width:100%;">💾 Save Student</button>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getFirestore, collection, doc, setDoc, getDoc, getDocs, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDCHRaW_jFOYHRL2QL0Me5ojE5XBuc93IA",
+            authDomain: "dts204-cbt.firebaseapp.com",
+            projectId: "dts204-cbt",
+            storageBucket: "dts204-cbt.firebasestorage.app",
+            messagingSenderId: "780943903110",
+            appId: "1:780943903110:web:af6671202e87177c1f8407"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // DEFAULT STUDENTS LIST (24 students)
+        const DEFAULT_STUDENTS = {
+            "RUN/SDS/24/17429": { name: "ADENOPO DORCAS ADEBOLA", level: "200" },
+            "RUN/SDS/24/17430": { name: "ADESINA DEMILADE ISRAEL", level: "200" },
+            "RUN/SDS/24/17431": { name: "ADEYEMI DANIEL ABAYOMI", level: "200" },
+            "RUN/SDS/23/17432": { name: "ADEYEMI JOMILOJU ADEDAMOLA", level: "200" },
+            "RUN/SDS/24/17433": { name: "AJIBADE BLESSING OREOFEOLUWA", level: "200" },
+            "RUN/SDS/24/17434": { name: "ARINZE CHISOM CHRISTOPHER", level: "200" },
+            "RUN/SDS/24/17435": { name: "AUGUSTINE KELVIN INIOLUWA", level: "200" },
+            "RUN/SDS/24/17436": { name: "CHUKWU DAVID IKECHUKWU", level: "200" },
+            "RUN/SDS/24/17437": { name: "ELUSAKIN ISRAEL OLUWANIFEMI", level: "200" },
+            "RUN/SDS/24/17438": { name: "ENILOLOBO ELIZABETH AJEBOWALE", level: "200" },
+            "RUN/SDS/24/17439": { name: "GBADAMOSI OLUWANIFEMI MAYEMIDUN", level: "200" },
+            "RUN/SDS/24/17440": { name: "IDOWU OLUWADARASIMI EMMANUEL", level: "200" },
+            "RUN/SDS/24/17441": { name: "IHEOMA MICHAEL BENJAMIN", level: "200" },
+            "RUN/SDS/24/17442": { name: "IYERE DANIEL MAYOWA", level: "200" },
+            "RUN/SDS/24/17443": { name: "NDATAH ANUOLUWAPO ARIT", level: "200" },
+            "RUN/SDS/24/17445": { name: "OGUNREMI AYOMIDE SAMUEL", level: "200" },
+            "RUN/SDS/24/17446": { name: "OKI EMMANUEL OSICHEMESE", level: "200" },
+            "RUN/SDS/24/17447": { name: "OKUGBOYE EBUNOLUWA TOMIWA", level: "200" },
+            "RUN/SDS/24/17448": { name: "OLADEPO JOSEPH OLUWOLE", level: "200" },
+            "RUN/SDS/24/17449": { name: "OLAYIOYE OLUWANDUROTIMI CALEB", level: "200" },
+            "RUN/SDS/24/17451": { name: "SOYOEGE TEMIJOPELO EMMANUEL", level: "200" },
+            "202440535049DF": { name: "OYANA EMMANUEL JOMILOJU", level: "200" },
+            "RUN/SDS/24/17452": { name: "UBOCHI WONDER CHIAGOZIEM", level: "200" },
+            "RUN/CPE/23/14521": { name: "AKINJOYE OKUNFOLAJIMI", level: "200" }
+        };
+
+        // Helper: Compute CA Score = (rawScore / 60) * 25, then round to nearest whole number (no decimals)
+        // Example: 18.4 -> 18, 18.6 -> 19 (standard rounding)
+        function computeCaScore(rawScore) {
+            if (rawScore === undefined || rawScore === null) return 0;
+            const score = Number(rawScore);
+            if (isNaN(score)) return 0;
+            const ca = (score / 60) * 25;
+            return Math.round(ca);  // Round to nearest whole number (no decimal places)
+        }
+
+        // Auth Check
+        function checkAuth() {
+            const isLoggedIn = sessionStorage.getItem('admin_logged_in');
+            if (!isLoggedIn || isLoggedIn !== 'true') {
+                window.location.href = 'adminLogin.html';
+                return false;
+            }
+            return true;
+        }
+
+        // DOM elements
+        const logoutAdminBtn = document.getElementById('logoutAdminBtn');
+        const examToggle = document.getElementById('examToggle');
+        const examStatusLabel = document.getElementById('examStatusLabel');
+        const totalStudentsEl = document.getElementById('totalStudents');
+        const submittedCountEl = document.getElementById('submittedCount');
+        const pendingCountEl = document.getElementById('pendingCount');
+        const avgCaScoreEl = document.getElementById('avgCaScore');
+        const addDefaultBtn = document.getElementById('addDefaultBtn');
+        const openAddModalBtn = document.getElementById('openAddModalBtn');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const saveStudentBtn = document.getElementById('saveStudentBtn');
+        const addModal = document.getElementById('addModal');
+        const newMatric = document.getElementById('newMatric');
+        const newName = document.getElementById('newName');
+        const downloadResultsPdfBtn = document.getElementById('downloadResultsPdfBtn');
+        const studentsTableBody = document.getElementById('studentsTableBody');
+        const tableError = document.getElementById('tableError');
+
+        if (!checkAuth()) throw new Error('Auth failed');
+
+        logoutAdminBtn.addEventListener('click', () => {
+            sessionStorage.removeItem('admin_logged_in');
+            window.location.href = 'adminLogin.html';
+        });
+
+        // Fetch all students from Firestore
+        async function fetchAllStudents() {
+            try {
+                const studentsSnap = await getDocs(collection(db, 'students'));
+                const students = [];
+                studentsSnap.forEach(docSnap => students.push({ id: docSnap.id, ...docSnap.data() }));
+                // Sort by name for consistent S/N order
+                students.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+                return students;
+            } catch (error) {
+                console.error("Error fetching students:", error);
+                if (error.code === 'permission-denied') {
+                    tableError.textContent = '⚠️ Permission denied. Please check Firebase Security Rules.';
+                    tableError.classList.remove('hidden');
+                } else {
+                    tableError.textContent = `Error: ${error.message}`;
+                    tableError.classList.remove('hidden');
+                }
+                return [];
+            }
+        }
+
+        // Render table with S/N (serial number), Raw Score + CA Score (whole number, no decimals)
+        function renderStudentsTable(students) {
+            studentsTableBody.innerHTML = '';
+            if (students.length === 0) {
+                studentsTableBody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:40px;">📭 No students found. Click "Add All 24 Default Students".</td></tr>';
+                return;
+            }
+
+            students.forEach((student, index) => {
+                const serialNumber = index + 1;
+                const rawScore = (student.score !== undefined && student.score !== null) ? student.score : 0;
+                const caScore = computeCaScore(rawScore);  // Already rounded to whole number
+                const statusText = student.examStatus === 'submitted' ? '✅ Submitted' : (student.examStatus || 'registered');
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="sn-column" style="text-align:center; font-weight:500;">${serialNumber}</td>
+                    <td><strong>${escapeHtml(student.name || '—')}</strong></td>
+                    <td>${escapeHtml(student.matric || student.id)}</td>
+                    <td>${student.level || '200'}</td>
+                    <td><span class="score-badge">${rawScore}</span></td>
+                    <td><span class="ca-badge">${caScore}</span> <span class="info-tooltip" title="(Raw Score ÷ 60) × 25 = CA Score (rounded to whole number)"></span></td>
+                    <td>${statusText}</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm delete-student" data-id="${student.id}" style="background:#ef4444; padding:5px 12px;">
+                            <i class="fas fa-trash"></i> Remove
+                        </button>
+                    </td>
+                `;
+                studentsTableBody.appendChild(row);
+            });
+
+            // attach delete handlers
+            document.querySelectorAll('.delete-student').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    const docId = btn.getAttribute('data-id');
+                    if (confirm('⚠️ Remove this student permanently? All exam data will be lost.')) {
+                        try {
+                            await deleteDoc(doc(db, 'students', docId));
+                            await refreshDashboardAndTable();
+                        } catch (error) {
+                            alert('Delete failed: ' + error.message);
+                        }
+                    }
+                });
+            });
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        // Update dashboard stats: totals, submitted, average CA score (whole numbers for display)
+        function updateStats(students) {
+            const total = students.length;
+            const submitted = students.filter(s => s.examStatus === 'submitted').length;
+            const pending = total - submitted;
+            
+            totalStudentsEl.textContent = total;
+            submittedCountEl.textContent = submitted;
+            pendingCountEl.textContent = pending;
+            
+            // Compute average CA Score among all students (using rounded whole numbers for consistency)
+            let sumCa = 0;
+            let countValid = 0;
+            students.forEach(s => {
+                const raw = (s.score !== undefined && s.score !== null) ? Number(s.score) : 0;
+                const ca = computeCaScore(raw);
+                sumCa += ca;
+                countValid++;
+            });
+            const avgCa = countValid > 0 ? (sumCa / countValid) : 0;
+            // Show average with 1 decimal for better insight, but individual scores are whole numbers
+            avgCaScoreEl.textContent = avgCa.toFixed(1);
+        }
+
+        // Main refresh: fetch, update stats & render table
+        async function refreshDashboardAndTable() {
+            if (tableError) tableError.classList.add('hidden');
+            const students = await fetchAllStudents();
+            window._latestStudents = students;
+            updateStats(students);
+            renderStudentsTable(students);
+        }
+
+        // Exam status listener
+        async function initExamToggle() {
+            try {
+                const configDoc = await getDoc(doc(db, 'config', 'examStatus'));
+                let active = false;
+                if (configDoc.exists()) {
+                    active = configDoc.data().active || false;
+                } else {
+                    await setDoc(doc(db, 'config', 'examStatus'), { active: false });
+                }
+                examToggle.checked = active;
+                examStatusLabel.textContent = active ? 'Active' : 'Inactive';
+            } catch (err) {
+                console.error(err);
+            }
+
+            examToggle.addEventListener('change', async (e) => {
+                try {
+                    const active = e.target.checked;
+                    await updateDoc(doc(db, 'config', 'examStatus'), { active });
+                    examStatusLabel.textContent = active ? 'Active' : 'Inactive';
+                } catch (error) {
+                    alert('Failed to update exam status. Check permissions.');
+                    e.target.checked = !e.target.checked;
+                }
+            });
+        }
+
+        // Add default 24 students (preserves existing, adds missing)
+        addDefaultBtn.addEventListener('click', async () => {
+            if (!confirm('Add all 24 default students? This will not overwrite existing students but will add missing ones.')) return;
+            let addedCount = 0;
+            for (const [matric, data] of Object.entries(DEFAULT_STUDENTS)) {
+                const docId = matric.replace(/\//g, '_');
+                try {
+                    const docRef = doc(db, 'students', docId);
+                    const docSnap = await getDoc(docRef);
+                    if (!docSnap.exists()) {
+                        await setDoc(docRef, {
+                            matric: matric,
+                            name: data.name,
+                            level: data.level || '200',
+                            examStatus: 'registered',
+                            score: 0,
+                            phone: ''
+                        });
+                        addedCount++;
+                    } else {
+                        // ensure score field exists and default raw score 0 if missing
+                        const existing = docSnap.data();
+                        if (existing.score === undefined) {
+                            await updateDoc(docRef, { score: 0 });
+                        }
+                    }
+                } catch (error) {
+                    console.error(`Error with ${matric}:`, error);
+                }
+            }
+            alert(`✅ ${addedCount} new students added. Total default set synchronized.`);
+            await refreshDashboardAndTable();
+        });
+
+        // Modal Controls
+        function showModal() { addModal.style.display = 'flex'; addModal.classList.remove('hidden'); }
+        function hideModal() { addModal.style.display = 'none'; addModal.classList.add('hidden'); newMatric.value = ''; newName.value = ''; }
+        openAddModalBtn.addEventListener('click', showModal);
+        closeModalBtn.addEventListener('click', hideModal);
+        addModal.addEventListener('click', (e) => { if (e.target === addModal) hideModal(); });
+
+        // Save new student with score 0
+        saveStudentBtn.addEventListener('click', async () => {
+            const matric = newMatric.value.trim();
+            const name = newName.value.trim();
+            if (!matric || !name) {
+                alert('Matric and Name are required.');
+                return;
+            }
+            const docId = matric.replace(/\//g, '_');
+            try {
+                await setDoc(doc(db, 'students', docId), {
+                    matric: matric,
+                    name: name,
+                    level: '200',
+                    examStatus: 'registered',
+                    score: 0,
+                    phone: ''
+                }, { merge: true });
+                alert(`Student ${name} added successfully!`);
+                hideModal();
+                await refreshDashboardAndTable();
+            } catch (error) {
+                console.error(error);
+                alert('Failed to add student: ' + error.message);
+            }
+        });
+
+        // Download PDF with Serial Number (S/N), Raw Score and CA Score (whole number, no decimals)
+        downloadResultsPdfBtn.addEventListener('click', async () => {
+            const students = window._latestStudents || [];
+            const submitted = students.filter(s => s.examStatus === 'submitted');
+            if (submitted.length === 0 && students.length > 0) {
+                if (!confirm('No student has submitted exam yet. Download all registered students instead?')) return;
+            }
+            const dataToExport = (submitted.length > 0) ? submitted : students;
+            if (dataToExport.length === 0) {
+                alert('No student records available to export.');
+                return;
+            }
+            
+            if (typeof window.jspdf === 'undefined' || typeof window.jspdf.jsPDF === 'undefined') {
+                alert('PDF library still loading. Try again in a moment.');
+                return;
+            }
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+            pdf.setFontSize(16);
+            pdf.text('DTS 204 - Examination Performance Report', 148, 20, { align: 'center' });
+            pdf.setFontSize(9);
+            pdf.text(`Generated: ${new Date().toLocaleString()}`, 148, 28, { align: 'center' });
+            
+            // Add S/N column to PDF export - CA Score as whole number (no decimal)
+            const headers = [['S/N', 'Name', 'Matric', 'Level', 'Raw Score /60', 'CA Score (over 25%)', 'Status']];
+            const bodyData = dataToExport.map((s, idx) => {
+                const raw = (s.score !== undefined && s.score !== null) ? Number(s.score) : 0;
+                const ca = computeCaScore(raw);  // Already rounded to whole number
+                return [
+                    (idx + 1).toString(),
+                    s.name || '—',
+                    s.matric || s.id,
+                    s.level || '200',
+                    `${raw}`,
+                    `${ca}`,  // No decimal places - whole number only
+                    s.examStatus === 'submitted' ? 'Submitted' : (s.examStatus || 'Registered')
+                ];
+            });
+            
+            if (typeof pdf.autoTable === 'function') {
+                pdf.autoTable({
+                    head: headers,
+                    body: bodyData,
+                    startY: 36,
+                    styles: { fontSize: 8, cellPadding: 2.5 },
+                    headStyles: { fillColor: [15, 36, 64], textColor: 255, fontSize: 9 },
+                    alternateRowStyles: { fillColor: [248, 250, 252] },
+                    columnStyles: {
+                        0: { cellWidth: 12, halign: 'center' }, // S/N column width
+                    }
+                });
+                pdf.save(`DTS204_CA_Scores_${new Date().toISOString().slice(0,10)}.pdf`);
+            } else {
+                alert('autoTable plugin missing, PDF cannot be generated.');
+            }
+        });
+
+        // initial load
+        (async () => {
+            await initExamToggle();
+            await refreshDashboardAndTable();
+        })();
+        
+        // Hide modal initially
+        addModal.style.display = 'none';
+        addModal.classList.add('hidden');
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+</body>
+</html>

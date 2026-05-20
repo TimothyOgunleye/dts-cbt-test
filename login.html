@@ -1,0 +1,593 @@
+  <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Login | DTS 204 CBT | Redeemer's University</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --navy: #0d1b3e;
+      --navy-mid: #132348;
+      --navy-light: #1a2f5e;
+      --navy-card: #1e3a6e;
+      --accent: #f0a500;
+      --accent-dk: #c98600;
+      --white: #ffffff;
+      --off-white: #e8edf7;
+      --muted: #9aaac8;
+      --border: rgba(255, 255, 255, .12);
+      --shadow: 0 8px 32px rgba(0, 0, 0, .40);
+      --gray-bg: #f8faff;
+      --card-border: #dde4f0;
+      --text-dark: #1e293b;
+      --text-muted: #64748b;
+      --red: #dc2626;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #ffffff;
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: var(--navy-mid);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 2px 18px rgba(0, 0, 0, .45);
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo-wrap {
+      width: 64px;
+      height: 64px;
+      border-radius: 10px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, .25);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, .4);
+    }
+
+    .logo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .logo-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(13px, 2.5vw, 19px);
+      font-weight: 700;
+      letter-spacing: .3px;
+      line-height: 1.2;
+      color: #ffffff;
+    }
+
+    .logo-text p {
+      font-size: clamp(10px, 1.6vw, 12px);
+      color: var(--muted);
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: inline-block;
+    }
+
+    .back-link {
+      margin-left: auto;
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 13px;
+      opacity: 0.85;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+
+    .back-link:hover {
+      opacity: 1;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      background: #ffffff;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1.5px solid var(--card-border);
+      border-radius: 20px;
+      box-shadow: 0 8px 40px rgba(13, 27, 62, .12);
+      max-width: 480px;
+      width: 100%;
+      padding: clamp(28px, 6vw, 52px);
+      animation: fadeUp 0.65s ease both;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(26px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .crest-icon {
+      width: 88px;
+      height: 88px;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      overflow: visible;
+      padding: 0;
+    }
+
+    .crest-icon .logo-wrap {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: transform 0.2s ease;
+    }
+
+    .crest-icon .logo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.08));
+    }
+
+    .crest-icon .logo-wrap:hover {
+      transform: scale(1.02);
+    }
+
+    .card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(20px, 5vw, 30px);
+      color: var(--navy-mid);
+      text-align: center;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .card .sub {
+      color: var(--text-muted);
+      font-size: clamp(12px, 2.2vw, 14px);
+      text-align: center;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1.5px solid var(--card-border);
+      border-radius: 10px;
+      font-size: 15px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      background: #ffffff;
+    }
+
+    input:focus {
+      border-color: var(--navy-mid);
+      box-shadow: 0 0 0 3px rgba(19, 35, 72, .10);
+    }
+
+    .hint {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 5px;
+    }
+
+    .error-msg {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: var(--red);
+      font-size: 13px;
+      margin-top: 14px;
+      display: none;
+    }
+
+    .error-msg.show {
+      display: block;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      background: var(--navy-mid);
+      color: #ffffff;
+      padding: 14px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      margin-top: 22px;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      font-family: inherit;
+      box-shadow: 0 4px 18px rgba(19, 35, 72, .28);
+    }
+
+    .btn:hover {
+      background: var(--navy);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 26px rgba(19, 35, 72, .38);
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .admin-link {
+      text-align: right;
+      margin-top: 18px;
+    }
+
+    .admin-link a {
+      color: var(--navy-mid);
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 14px;
+      border-bottom: 1px dashed var(--navy-mid);
+      transition: color 0.2s;
+    }
+
+    .admin-link a:hover {
+      color: var(--accent);
+    }
+
+    .notice {
+      background: var(--off-white);
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 12px;
+      color: var(--navy-mid);
+      margin-top: 24px;
+      line-height: 1.6;
+      border: 1px solid #c8d4f0;
+      font-weight: 500;
+    }
+
+    footer {
+      background: #f0f4ff;
+      border-top: 1px solid #dde4f0;
+      text-align: center;
+      padding: 14px 20px;
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    /* lecturer link styling – clickable and elegant */
+    .lecturer-link {
+      color: #1e3a6e;
+      text-decoration: none;
+      font-weight: 600;
+      background: transparent;
+      transition: all 0.2s ease;
+      border-bottom: 1px dotted #1e3a6e;
+      margin-left: 4px;
+      margin-right: 4px;
+    }
+
+    .lecturer-link:hover {
+      color: #f0a500;
+      border-bottom-color: #f0a500;
+      background-color: rgba(240, 165, 0, 0.05);
+      padding: 0 2px;
+      border-radius: 4px;
+    }
+
+    .footer-text {
+      display: inline-block;
+      max-width: 90%;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 640px) {
+      .header-inner {
+        padding: 10px 16px;
+        gap: 11px;
+      }
+
+      .logo-wrap {
+        width: 54px;
+        height: 54px;
+      }
+
+      .logo-text h1 {
+        font-size: 14px;
+      }
+
+      .card {
+        padding: 24px 20px;
+      }
+
+      .crest-icon {
+        width: 78px;
+        height: 78px;
+      }
+
+      .crest-icon .logo-wrap {
+        width: 78px;
+        height: 78px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header-inner {
+        padding: 8px 12px;
+      }
+
+      .logo-wrap {
+        width: 46px;
+        height: 46px;
+      }
+
+      .logo-text h1 {
+        font-size: 12px;
+      }
+
+      .card h2 {
+        font-size: 20px;
+      }
+
+      .btn {
+        padding: 13px;
+      }
+
+      .crest-icon {
+        width: 72px;
+        height: 72px;
+      }
+
+      .crest-icon .logo-wrap {
+        width: 72px;
+        height: 72px;
+      }
+
+      footer {
+        font-size: 10px;
+        padding: 12px 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo-wrap">
+        <img src="redemer.jpeg" alt="Redeemer's University Logo" width="150"
+          onerror="this.src='https://placehold.co/150x150?text=RUN'">
+      </div>
+      <div class="logo-text">
+        <h1>REDEEMER'S UNIVERSITY, EDE, NIGERIA - CBT</h1>
+        <p><span class="dot"></span> Mathematical Sciences <span class="dot"></span> DTS 204 Mid-Semester Examination
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="card">
+      <div class="crest-icon">
+        <div class="logo-wrap">
+          <img src="redemer.jpeg" alt="Redeemer's University Official Crest" width="150"
+            onerror="this.src='https://placehold.co/150x150?text=RUN+Crest'">
+        </div>
+      </div>
+
+      <h2>Student Portal Login</h2>
+      <p class="sub">
+        <span>Computer Based Test Access</span>
+        <span>• DTS 204 •</span>
+      </p>
+
+      <div>
+        <label for="matric">Matriculation Number</label>
+        <input type="text" id="matric" placeholder="e.g. RUN/SDS/24/123456" autocomplete="off" spellcheck="false" />
+        <div class="hint">Enter your matric number exactly as assigned (case insensitive)</div>
+        <div class="error-msg" id="errMsg">Matric number not found. Please check and try again.</div>
+      </div>
+
+      <button class="btn" id="loginBtn">Proceed to dashboard</button>
+
+      <div class="admin-link">
+        <a href="adminLogin.html">Admin Login</a>
+      </div>
+    </div>
+  </main>
+
+     <footer>
+        <div class="footer-inner">
+            <p>&copy; 2026 DTS 204 Course Lecturer for 2nd Semester of 2025/2026 Academic Session: Dr. Timothy A. Ogunleye &nbsp;|&nbsp; <a href="https://timothy-ogunleye.vercel.app/"
+                    target="_blank">Lecturer Profile</a></p>
+        </div>
+    </footer>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDCHRaW_jFOYHRL2QL0Me5ojE5XBuc93IA",
+      authDomain: "dts204-cbt.firebaseapp.com",
+      projectId: "dts204-cbt",
+      storageBucket: "dts204-cbt.firebasestorage.app",
+      messagingSenderId: "780943903110",
+      appId: "1:780943903110:web:af6671202e87177c1f8407"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    function normalizeMatric(input) {
+      return input.trim().toUpperCase().replace(/\s+/g, '');
+    }
+
+    async function handleLogin() {
+      const inputField = document.getElementById('matric');
+      const rawValue = inputField.value;
+      const val = normalizeMatric(rawValue);
+      const errDiv = document.getElementById('errMsg');
+      const loginBtn = document.getElementById('loginBtn');
+
+      errDiv.classList.remove('show');
+      inputField.style.borderColor = '';
+
+      if (!val) {
+        errDiv.textContent = 'Please enter your matriculation number.';
+        errDiv.classList.add('show');
+        inputField.style.borderColor = '#dc2626';
+        inputField.focus();
+        return;
+      }
+
+      const docId = val.replace(/\//g, '_');
+      try {
+        loginBtn.textContent = 'Verifying...';
+        loginBtn.disabled = true;
+
+        const docSnap = await getDoc(doc(db, 'students', docId));
+
+        if (docSnap.exists()) {
+          const studentData = docSnap.data();
+          const sessionData = {
+            matric: val,
+            name: studentData.name || 'Student',
+            level: studentData.level || '200',
+            examStatus: studentData.examStatus || 'registered',
+            phone: studentData.phone || '',
+            score: studentData.score || 0,
+            startedAt: studentData.startedAt || null,
+            submittedAt: studentData.submittedAt || null
+          };
+          sessionStorage.setItem('cbt_student', JSON.stringify(sessionData));
+
+          loginBtn.textContent = 'Verified! Redirecting...';
+          loginBtn.style.background = '#1e6f3f';
+          setTimeout(() => {
+            window.location.href = 'dashboard.html';
+          }, 700);
+        } else {
+          errDiv.textContent = 'Matric number not found. Please input correct matric number.';
+          errDiv.classList.add('show');
+          inputField.style.borderColor = '#dc2626';
+          inputField.focus();
+          loginBtn.textContent = 'Proceed to dashboard';
+          loginBtn.disabled = false;
+        }
+      } catch (error) {
+        console.error('Firestore error:', error);
+        errDiv.textContent = 'Network error. Please try again.';
+        errDiv.classList.add('show');
+        loginBtn.textContent = 'Proceed to Exam';
+        loginBtn.disabled = false;
+      }
+    }
+
+    function resetInputErrorStyle() {
+      const inputField = document.getElementById('matric');
+      const errDiv = document.getElementById('errMsg');
+      if (inputField.style.borderColor === 'rgb(220, 38, 38)' || inputField.style.borderColor === '#dc2626') {
+        inputField.style.borderColor = '';
+      }
+      if (errDiv.classList.contains('show')) {
+        errDiv.classList.remove('show');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const loginButton = document.getElementById('loginBtn');
+      const matricInput = document.getElementById('matric');
+
+      loginButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        handleLogin();
+      });
+
+      matricInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          handleLogin();
+        }
+      });
+
+      matricInput.addEventListener('input', resetInputErrorStyle);
+      matricInput.focus();
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,477 @@
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DTS 204 CBT | Redeemer's University</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --navy: #0d1b3e;
+      --navy-mid: #132348;
+      --navy-light: #1a2f5e;
+      --navy-card: #1e3a6e;
+      --accent: #f0a500;
+      --accent-dk: #c98600;
+      --white: #ffffff;
+      --off-white: #e8edf7;
+      --muted: #9aaac8;
+      --border: rgba(255, 255, 255, .12);
+      --shadow: 0 8px 32px rgba(0, 0, 0, .40);
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #ffffff;
+      color: #1e293b;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─── HEADER ─────────────────────────────── */
+    header {
+      background: var(--navy-mid);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 2px 18px rgba(0, 0, 0, .45);
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo-wrap {
+      width: 64px;
+      height: 64px;
+      border-radius: 10px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, .25);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, .4);
+    }
+
+    .logo-wrap img {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+    }
+
+    .logo-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(13px, 2.5vw, 19px);
+      font-weight: 700;
+      letter-spacing: .3px;
+      line-height: 1.2;
+      color: #ffffff;
+    }
+
+    .logo-text p {
+      font-size: clamp(10px, 1.6vw, 12px);
+      color: var(--muted);
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    /* ─── HERO ───────────────────────────────── */
+    .hero {
+      flex: 1;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 44px 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* very subtle dot pattern for texture on white */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, #d0d8ee 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: .45;
+      pointer-events: none;
+    }
+
+    .hero-card {
+      background: #ffffff;
+      border: 1.5px solid #dde4f0;
+      border-radius: 20px;
+      box-shadow: 0 8px 40px rgba(13, 27, 62, .12);
+      max-width: 660px;
+      width: 100%;
+      padding: clamp(24px, 6vw, 52px);
+      text-align: center;
+      animation: fadeUp .65s ease both;
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(26px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .crest {
+      width: 96px;
+      height: 96px;
+      margin: 0 auto 20px;
+      border-radius: 14px;
+      background: #f0f4ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border: 2px solid #dde4f0;
+      box-shadow: 0 4px 18px rgba(13, 27, 62, .12);
+    }
+
+    .crest img {
+      width: 88px;
+      height: 88px;
+      object-fit: contain;
+    }
+
+    .hero-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(19px, 4.5vw, 30px);
+      color: var(--navy-mid);
+      margin-bottom: 6px;
+      line-height: 1.25;
+    }
+
+    .hero-card .sub {
+      color: #64748b;
+      font-size: clamp(12px, 2.2vw, 14px);
+      margin-bottom: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .hero-card .sub span {
+      color: #1e293b;
+      font-weight: 500;
+    }
+
+    /* ─── INFO BOX ───────────────────────────── */
+    .info-box {
+      background: #f0f4ff;
+      border: 1.5px solid #c8d4f0;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 26px;
+      text-align: left;
+    }
+
+    .info-box h3 {
+      color: var(--navy-mid);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 16px;
+    }
+
+    .info-item {
+      font-size: 13px;
+      color: #1e293b;
+    }
+
+    .info-item span {
+      color: #64748b;
+      font-weight: 500;
+      margin-right: 4px;
+    }
+
+    /* ─── BUTTON ─────────────────────────────── */
+    .btn {
+      display: inline-block;
+      background: var(--navy-mid);
+      color: #ffffff;
+      padding: 13px 48px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      letter-spacing: .3px;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 4px 18px rgba(19, 35, 72, .28);
+    }
+
+    .btn:hover {
+      background: var(--navy);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 26px rgba(19, 35, 72, .38);
+    }
+
+    /* ─── FEATURES ───────────────────────────── */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .feat {
+      background: #f8faff;
+      border: 1.5px solid #dde4f0;
+      border-radius: 12px;
+      padding: 16px 8px;
+      transition: border-color .2s, transform .2s, box-shadow .2s;
+    }
+
+    .feat:hover {
+      border-color: var(--navy-mid);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(19, 35, 72, .10);
+    }
+
+    .feat .icon {
+      font-size: 26px;
+      margin-bottom: 6px;
+    }
+
+    .feat h4 {
+      font-size: 12px;
+      color: var(--navy-mid);
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    .feat p {
+      font-size: 11px;
+      color: #64748b;
+    }
+
+    /* ─── FOOTER ─────────────────────────────── */
+ footer {
+      background: #f0f4ff;
+      border-top: 1px solid #dde4f0;
+      text-align: center;
+      padding: 14px 20px;
+      font-size: 12px;
+      color: #64748b;
+    }
+
+
+    /* ─── RESPONSIVE ─────────────────────────── */
+    @media(max-width:768px) {
+      .header-inner {
+        padding: 10px 16px;
+        gap: 11px;
+      }
+
+      .logo-wrap {
+        width: 54px;
+        height: 54px;
+      }
+
+      .logo-wrap img {
+        width: 48px;
+        height: 48px;
+      }
+
+      .logo-text h1 {
+        font-size: 14px;
+      }
+
+      .hero {
+        padding: 30px 14px;
+      }
+
+      .features {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .feat:last-child {
+        grid-column: 1/-1;
+      }
+    }
+
+    @media(max-width:480px) {
+      .header-inner {
+        padding: 10px 12px;
+        gap: 9px;
+      }
+
+      .logo-wrap {
+        width: 46px;
+        height: 46px;
+      }
+
+      .logo-wrap img {
+        width: 40px;
+        height: 40px;
+      }
+
+      .logo-text h1 {
+        font-size: 12px;
+        letter-spacing: 0;
+      }
+
+      .logo-text p {
+        font-size: 10px;
+      }
+
+      .hero {
+        padding: 20px 10px;
+      }
+
+      .hero-card {
+        padding: 20px 14px;
+        border-radius: 14px;
+      }
+
+      .crest {
+        width: 78px;
+        height: 78px;
+      }
+
+      .crest img {
+        width: 70px;
+        height: 70px;
+      }
+
+      .hero-card h2 {
+        font-size: 18px;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .btn {
+        padding: 13px 0;
+        width: 100%;
+        font-size: 15px;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      .feat:last-child {
+        grid-column: unset;
+      }
+    }
+
+    @media(max-width:360px) {
+      .logo-text h1 {
+        font-size: 11px;
+      }
+
+      .hero-card h2 {
+        font-size: 16px;
+      }
+
+      .info-box {
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="header-inner">
+      <div class="logo-wrap">
+        <img src="redemer.jpeg" alt="Redeemer's University Logo" width="150">
+      </div>
+      <div class="logo-text">
+        <h1>REDEEMER'S UNIVERSITY, EDE, NIGERIA - CBT</h1>
+        <p><span class="dot"></span> Mathematical Sciences <span class="dot"></span> DTS 204 Mid-Semester Examination
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-card">
+      <div class="crest">
+        <img src="redemer.jpeg" alt="Redeemer's University Crest" width="150">
+      </div>
+
+      <h2>CBT Examination Portal</h2>
+      <p class="sub">
+        <span>Computer Based Test Platform</span>
+        - Mid-Semester Examination
+      </p>
+
+      <div class="info-box">
+        <h3>Examination Details</h3>
+        <div class="info-grid">
+          <div class="info-item"><span>Course:</span> DTS 204</div>
+          <div class="info-item"><span>Units:</span> 3 Units</div>
+          <div class="info-item"><span>Faculty:</span> Natural Sciences</div>
+          <div class="info-item"><span>Dept:</span> Mathematical Sciences</div>
+          <div class="info-item"><span>Session:</span> 2025/2026 2nd Sem</div>
+          <div class="info-item"><span>Weight:</span> 25% (CA)</div>
+        </div>
+      </div>
+
+      <a href="login.html" class="btn">Login</a>
+    </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <p>&copy; 2026 DTS 204 Course Lecturer for 2nd Semester of 2025/2026 Academic Session: Dr. Timothy A. Ogunleye
+        &nbsp;|&nbsp; <a href="https://timothy-ogunleye.vercel.app/" target="_blank">Lecturer Profile</a></p>
+    </div>
+  </footer>
+
+</body>
+
+</html>
